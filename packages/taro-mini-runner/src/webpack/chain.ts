@@ -401,6 +401,20 @@ export const getModule = (appPath: string, {
     scriptRule.exclude = [filename => /css-loader/.test(filename) || (/node_modules/.test(filename) && !(/taro/.test(filename)))]
   }
 
+  const templateRule: IRule = {
+    use: [getFileLoader([{
+      useRelativePath: true,
+      name: `[path][name]${fileType.templ}`,
+      context: sourceDir
+    }])]
+  }
+  if (isBuildQuickapp) {
+    templateRule.test = /\.ux(\?.*)?$/
+  } else {
+    templateRule.test = REG_TEMPLATE
+    templateRule.use.push(miniTemplateLoader)
+  }
+
   const rule: Record<string, IRule> = {
     sass: {
       test: REG_SASS_SASS,
@@ -423,14 +437,7 @@ export const getModule = (appPath: string, {
       oneOf: cssLoaders
     },
     script: scriptRule,
-    template: {
-      test: REG_TEMPLATE,
-      use: [getFileLoader([{
-        useRelativePath: true,
-        name: `[path][name]${fileType.templ}`,
-        context: sourceDir
-      }]), miniTemplateLoader]
-    },
+    template: templateRule,
     media: {
       test: REG_MEDIA,
       use: {

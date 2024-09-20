@@ -41,6 +41,7 @@ import type { AppConfig, Config } from '@tarojs/taro'
 import type { Func } from '@tarojs/taro/types/compile'
 import type { PrerenderConfig } from '../prerender/prerender'
 import type { AddPageChunks, IComponent, IFileType } from '../utils/types'
+import { generateQuickAppManifest } from '../utils/helper'
 
 const PLUGIN_NAME = 'TaroMiniPlugin'
 
@@ -49,6 +50,8 @@ interface ITaroMiniPluginOptions {
   constantsReplaceList: {
     [key: string]: any
   }
+  outputDir: string
+  nodeModulesPath: string
   sourceDir: string
   isBuildPlugin: boolean
   pluginConfig?: Record<string, any>
@@ -60,6 +63,7 @@ interface ITaroMiniPluginOptions {
   prerender?: PrerenderConfig
   addChunkPages?: AddPageChunks
   isBuildQuickapp: boolean
+  quickappJSON: any
   minifyXML?: {
     collapseWhitespace?: boolean
   }
@@ -84,7 +88,7 @@ export interface IComponentObj {
   type?: string
 }
 
-interface FilesConfig {
+export interface FilesConfig {
   [configName: string]: {
     content: Config
     path: string
@@ -330,6 +334,21 @@ export default class TaroMiniPlugin {
           }
         })
       })
+
+      /**
+       * 快应用sourcemap会报错
+       */
+      if (this.options.isBuildQuickapp) {
+        compilation.hooks.afterOptimizeAssets.tap(PLUGIN_NAME, assets => {
+          Object.keys(assets).forEach(assetPath => {
+            const styleExt = fileType.style + '.map'
+            const scriptExt = fileType.script + '.map'
+            if (assetPath.endsWith(styleExt) || assetPath.endsWith(scriptExt)) {
+              delete assets[assetPath]
+            }
+          })
+        })
+      }
     })
 
     compiler.hooks.emit.tapAsync(
@@ -458,10 +477,14 @@ export default class TaroMiniPlugin {
         }
       }
     })
-    if (!template.isSupportRecursive) {
+    if (this.options.isBuildQuickapp) {
+      this.addEntry(path.resolve(__dirname, '..', 'template/quickapp'), 'quickapp', META_TYPE.STATIC)
+    } else if (!template.isSupportRecursive) {
       this.addEntry(path.resolve(__dirname, '..', 'template/comp'), this.getIsBuildPluginPath('comp', true), META_TYPE.STATIC)
     }
-    this.addEntry(path.resolve(__dirname, '..', 'template/custom-wrapper'), this.getIsBuildPluginPath('custom-wrapper', true), META_TYPE.STATIC)
+    if (!this.options.isBuildQuickapp) {
+      this.addEntry(path.resolve(__dirname, '..', 'template/custom-wrapper'), this.getIsBuildPluginPath('custom-wrapper', true), META_TYPE.STATIC)
+    }
     normalFiles.forEach(item => {
       this.addEntry(item.path, item.name, META_TYPE.NORMAL)
     })
@@ -625,13 +648,20 @@ export default class TaroMiniPlugin {
   addEntries () {
     const { template } = this.options
     this.addEntry(this.appEntry, 'app', META_TYPE.ENTRY)
-    if (!template.isSupportRecursive) {
-      this.addEntry(path.resolve(__dirname, '..', 'template/comp'), 'comp', META_TYPE.STATIC)
+    if (this.options.isBuildQuickapp) {
+      this.addEntry(path.resolve(__dirname, '..', 'template/quickapp'), 'quickapp', META_TYPE.STATIC)
+    } else if (!template.isSupportRecursive) {
+      this.addEntry(path.resolve(__dirname, '..', 'template/comp'), this.getIsBuildPluginPath('comp', false), META_TYPE.STATIC)
     }
-    this.addEntry(path.resolve(__dirname, '..', 'template/custom-wrapper'), 'custom-wrapper', META_TYPE.STATIC)
+    if (!this.options.isBuildQuickapp) {
+      this.addEntry(path.resolve(__dirname, '..', 'template/custom-wrapper'), this.getIsBuildPluginPath('custom-wrapper', false), META_TYPE.STATIC)
+    }
     this.pages.forEach(item => {
       if (item.isNative) {
-        this.addEntry(item.path, item.name, META_TYPE.NORMAL)
+        // 快应用的模版和js逻辑在同一个文件里
+        if (!this.options.isBuildQuickapp) {
+          this.addEntry(item.path, item.name, META_TYPE.NORMAL)
+        }
         if (item.stylePath && fs.existsSync(item.stylePath)) {
           this.addEntry(item.stylePath, this.getStylePath(item.name), META_TYPE.NORMAL)
         }
@@ -644,7 +674,10 @@ export default class TaroMiniPlugin {
     })
     this.components.forEach(item => {
       if (item.isNative) {
-        this.addEntry(item.path, item.name, META_TYPE.NORMAL)
+        // 快应用的模版和js逻辑在同一个文件里
+        if (!this.options.isBuildQuickapp) {
+          this.addEntry(item.path, item.name, META_TYPE.NORMAL)
+        }
         if (item.stylePath && fs.existsSync(item.stylePath)) {
           this.addEntry(item.stylePath, this.getStylePath(item.name), META_TYPE.NORMAL)
         }
@@ -916,75 +949,84 @@ export default class TaroMiniPlugin {
     if (typeof modifyMiniConfigs === 'function') {
       await modifyMiniConfigs(this.filesConfig)
     }
-    if (!this.options.blended && !isBuildPlugin) {
-      const appConfigPath = this.getConfigFilePath(this.appEntry)
-      const appConfigName = path.basename(appConfigPath).replace(path.extname(appConfigPath), '')
-      this.generateConfigFile(compilation, this.appEntry, this.filesConfig[appConfigName].content)
-    }
-    if (!template.isSupportRecursive) {
-      // 如微信、QQ 不支持递归模版的小程序，需要使用自定义组件协助递归
-      this.generateTemplateFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), template.buildBaseComponentTemplate, this.options.fileType.templ)
-      const baseCompConfig = {
-        component: true,
-        usingComponents: {
-          [baseCompName]: `./${baseCompName}`
-        }
-      }
-      if (isUsingCustomWrapper) {
-        baseCompConfig[customWrapperName] = `./${customWrapperName}`
-        this.generateConfigFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), {
-          component: true,
-          usingComponents: {
-            [baseCompName]: `./${baseCompName}`,
-            [customWrapperName]: `./${customWrapperName}`
-          }
-        })
-      }
-      this.generateConfigFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), baseCompConfig)
+    if (this.options.isBuildQuickapp) {
+      // 为快应用生成manifest文件
+      this.generateQuickAppManifestFile(compilation)
+      this.generateTemplateFile(compilation, this.appEntry, () => '')
     } else {
-      if (isUsingCustomWrapper) {
-        this.generateConfigFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), {
-          component: true,
-          usingComponents: {
-            [customWrapperName]: `./${customWrapperName}`
-          }
-        })
+      if (!this.options.blended && !isBuildPlugin) {
+        const appConfigPath = this.getConfigFilePath(this.appEntry)
+        const appConfigName = path.basename(appConfigPath).replace(path.extname(appConfigPath), '')
+        this.generateConfigFile(compilation, this.appEntry, this.filesConfig[appConfigName].content)
       }
-    }
-    this.generateTemplateFile(compilation, baseTemplateName, template.buildTemplate, componentConfig)
-    if (isUsingCustomWrapper) {
-      this.generateTemplateFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), template.buildCustomComponentTemplate, this.options.fileType.templ)
-    } else {
-      delete compilation.assets['custom-wrapper.js']
-    }
-    this.generateXSFile(compilation, 'utils', isBuildPlugin)
-    // 为独立分包生成 base/comp/custom-wrapper
-    this.independentPackages.forEach((_pages, name) => {
-      this.generateTemplateFile(compilation, `${name}/${baseTemplateName}`, template.buildTemplate, componentConfig)
       if (!template.isSupportRecursive) {
         // 如微信、QQ 不支持递归模版的小程序，需要使用自定义组件协助递归
-        this.generateConfigFile(compilation, `${name}/${baseCompName}`, {
+        this.generateTemplateFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), template.buildBaseComponentTemplate, this.options.fileType.templ)
+        const baseCompConfig = {
           component: true,
           usingComponents: {
-            [baseCompName]: `./${baseCompName}`,
+            [baseCompName]: `./${baseCompName}`
+          }
+        }
+        if (isUsingCustomWrapper) {
+          baseCompConfig[customWrapperName] = `./${customWrapperName}`
+          this.generateConfigFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), {
+            component: true,
+            usingComponents: {
+              [baseCompName]: `./${baseCompName}`,
+              [customWrapperName]: `./${customWrapperName}`
+            }
+          })
+        }
+        this.generateConfigFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), baseCompConfig)
+      } else {
+        if (isUsingCustomWrapper) {
+          this.generateConfigFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), {
+            component: true,
+            usingComponents: {
+              [customWrapperName]: `./${customWrapperName}`
+            }
+          })
+        }
+      }
+      this.generateTemplateFile(compilation, baseTemplateName, template.buildTemplate, componentConfig)
+      if (isUsingCustomWrapper) {
+        this.generateTemplateFile(compilation, this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), template.buildCustomComponentTemplate, this.options.fileType.templ)
+      } else {
+        delete compilation.assets['custom-wrapper.js']
+      }
+      this.generateXSFile(compilation, 'utils', isBuildPlugin)
+      // 为独立分包生成 base/comp/custom-wrapper
+      this.independentPackages.forEach((_pages, name) => {
+        this.generateTemplateFile(compilation, `${name}/${baseTemplateName}`, template.buildTemplate, componentConfig)
+        if (!template.isSupportRecursive) {
+          // 如微信、QQ 不支持递归模版的小程序，需要使用自定义组件协助递归
+          this.generateTemplateFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), template.buildBaseComponentTemplate, this.options.fileType.templ)
+          this.generateConfigFile(compilation, this.getIsBuildPluginPath(baseCompName, isBuildPlugin), {
+            component: true,
+            usingComponents: {
+              [baseCompName]: `./${baseCompName}`,
+              [customWrapperName]: `./${customWrapperName}`
+            }
+          })
+          this.generateTemplateFile(compilation, `${name}/${baseCompName}`, template.buildBaseComponentTemplate, this.options.fileType.templ)
+        }
+        this.generateConfigFile(compilation, `${name}/${customWrapperName}`, {
+          component: true,
+          usingComponents: {
             [customWrapperName]: `./${customWrapperName}`
           }
         })
-        this.generateTemplateFile(compilation, `${name}/${baseCompName}`, template.buildBaseComponentTemplate, this.options.fileType.templ)
-      }
-      this.generateConfigFile(compilation, `${name}/${customWrapperName}`, {
-        component: true,
-        usingComponents: {
-          [customWrapperName]: `./${customWrapperName}`
-        }
+        this.generateTemplateFile(compilation, `${name}/${customWrapperName}`, template.buildCustomComponentTemplate, this.options.fileType.templ)
+        this.generateXSFile(compilation, `${name}/utils`, isBuildPlugin)
       })
-      this.generateTemplateFile(compilation, `${name}/${customWrapperName}`, template.buildCustomComponentTemplate, this.options.fileType.templ)
-      this.generateXSFile(compilation, `${name}/utils`, isBuildPlugin)
-    })
+    }
+
+    
     this.components.forEach(component => {
       const importBaseTemplatePath = promoteRelativePath(path.relative(component.path, path.join(sourceDir, this.getTemplatePath(baseTemplateName))))
       const config = this.filesConfig[this.getConfigFilePath(component.name)]
-      if (config) {
+      if (config && !this.options.isBuildQuickapp) {
         this.generateConfigFile(compilation, component.path, config.content)
       }
       if (!component.isNative) {
@@ -1003,7 +1045,7 @@ export default class TaroMiniPlugin {
           importBaseTemplatePath = promoteRelativePath(path.relative(page.path, path.join(sourceDir, name, this.getTemplatePath(baseTemplateName))))
         }
       })
-      if (config) {
+      if (config && !this.options.isBuildQuickapp) {
         let importBaseCompPath = promoteRelativePath(path.relative(page.path, path.join(sourceDir, this.getTargetFilePath(this.getIsBuildPluginPath(baseCompName, isBuildPlugin), ''))))
         let importCustomWrapperPath = promoteRelativePath(path.relative(page.path, path.join(sourceDir, this.getTargetFilePath(this.getIsBuildPluginPath(customWrapperName, isBuildPlugin), ''))))
         if (isIndependent) {
@@ -1026,7 +1068,14 @@ export default class TaroMiniPlugin {
       }
     })
     this.generateTabBarFiles(compilation)
-    this.injectCommonStyles(compilation)
+
+    if (this.options.isBuildQuickapp) {
+      // 删除快应用模版
+      delete compilation.assets[`quickapp${this.options.fileType.script}`]
+    } else {
+      this.injectCommonStyles(compilation)
+    }
+
     if (this.themeLocation) {
       this.generateDarkModeFile(compilation)
     }
@@ -1047,6 +1096,105 @@ export default class TaroMiniPlugin {
     }
   }
 
+  generateQuickAppManifestFile (compilation: webpack.compilation.Compilation) {
+    const pageConfigs = Array.from(this.pages).reduce<Record<string, Config>>((obj, { name }) => {
+      const content = this.filesConfig[this.getConfigFilePath(name)].content
+      obj[name] = content
+      return obj
+    }, {})
+    const quickappJSON = generateQuickAppManifest({
+      appConfig: this.appConfig,
+      pageConfigs,
+      designWidth: this.options.designWidth,
+      quickappJSON: this.options.quickappJSON
+    })
+    const quickappJSONStr = JSON.stringify(quickappJSON).replace(/\\\\/g, '/')
+    compilation.assets['./manifest.json'] = {
+      size: () => quickappJSONStr.length,
+      source: () => quickappJSONStr
+    }
+  }
+
+  generateQuickAppTemplateFile (compilation: webpack.compilation.Compilation, componentName: string, templStr: string) {
+    const fileTemplName = this.getTemplatePath(componentName)
+    const fileScriptName = this.getScriptPath(componentName)
+    const fileStyleName = this.getStylePath(componentName)
+
+    // 处理usingComponents
+    const usingComponents = this.filesConfig[this.getConfigFilePath(componentName)]?.content.usingComponents ?? {}
+    templStr = Object.keys(usingComponents).map(name => {
+      const path = usingComponents[name]
+      return `<import name="${name}" src="${path}"></import>`
+    }).join('\n') + templStr
+
+    let baseTemplInfo: {
+      fileTemplName: string,
+      templStr: string
+    } | undefined
+
+    if (componentName !== 'app') {
+      let templStr = this.options.template.buildTemplate(componentConfig)
+      if (this.options.minifyXML?.collapseWhitespace) {
+        templStr = minify(templStr, {
+          collapseWhitespace: true,
+          keepClosingSlash: true
+        })
+      }
+      baseTemplInfo = {
+        fileTemplName: path.join(componentName, '..', `base${this.options.fileType.templ}`),
+        templStr
+      }
+    }
+
+    if (baseTemplInfo) {
+      const scriptContent = compilation.assets[`quickapp${this.options.fileType.script}`].source()
+      baseTemplInfo.templStr += `\n<script>module.exports=${scriptContent}</script>`
+    }
+
+    let hitScriptItem
+
+    Object.keys(compilation.assets).forEach(item => {
+      if (baseTemplInfo && fileStyleName.indexOf(item) >= 0) {
+        const appFileStyleName = this.getStylePath('app')
+        const appRelativeStylePath = promoteRelativePath(path.relative(baseTemplInfo.fileTemplName, appFileStyleName))
+        const relativeStylePath = promoteRelativePath(path.relative(baseTemplInfo.fileTemplName, fileStyleName))
+        baseTemplInfo.templStr = `<style>
+@import '${appRelativeStylePath}';
+${this.getCommonStyleAssets(compilation).map(assetName => {
+    const relativeStylePath = promoteRelativePath(path.relative(fileTemplName, assetName))
+    return `@import '${relativeStylePath}';`
+  }).join('\n')
+}
+@import '${relativeStylePath}';
+</style>
+` + baseTemplInfo.templStr
+      }
+
+      if (fileScriptName.indexOf(item) >= 0) {
+        const assetItem = compilation.assets[item]
+        const scriptContent = assetItem.source()
+        hitScriptItem = item
+        templStr += `\n<script>${scriptContent}</script>`
+      }
+    })
+
+    if (hitScriptItem) {
+      delete compilation.assets[hitScriptItem]
+    }
+
+    compilation.assets[fileTemplName] = {
+      size: () => templStr.length,
+      source: () => templStr
+    }
+
+    if (baseTemplInfo) {
+      compilation.assets[baseTemplInfo.fileTemplName] = {
+        size: () => baseTemplInfo!.templStr.length,
+        source: () => baseTemplInfo!.templStr
+      }
+    }
+  }
+
   generateConfigFile (compilation: webpack.compilation.Compilation, filePath: string, config: Config & { component?: boolean }) {
     const fileConfigName = this.getConfigPath(this.getComponentName(filePath))
     const unOfficalConfigs = ['enableShareAppMessage', 'enableShareTimeline', 'components']
@@ -1062,7 +1210,9 @@ export default class TaroMiniPlugin {
 
   generateTemplateFile (compilation: webpack.compilation.Compilation, filePath: string, templateFn: (...args) => string, ...options) {
     let templStr = templateFn(...options)
-    const fileTemplName = this.getTemplatePath(this.getComponentName(filePath))
+
+    const componentName = this.getComponentName(filePath)
+    const fileTemplName = this.getTemplatePath(componentName)
 
     if (this.options.minifyXML?.collapseWhitespace) {
       templStr = minify(templStr, {
@@ -1074,6 +1224,10 @@ export default class TaroMiniPlugin {
     compilation.assets[fileTemplName] = {
       size: () => templStr.length,
       source: () => templStr
+    }
+
+    if (this.options.isBuildQuickapp) {
+      this.generateQuickAppTemplateFile(compilation, componentName, templStr)
     }
   }
 
@@ -1133,6 +1287,11 @@ export default class TaroMiniPlugin {
     return this.getTargetFilePath(filePath, this.options.fileType.config)
   }
 
+  /** 处理 config 文件后缀 */
+  getScriptPath (filePath: string) {
+    return this.getTargetFilePath(filePath, this.options.fileType.script)
+  }
+
   /** 处理 extname */
   getTargetFilePath (filePath: string, targetExtname: string) {
     const extname = path.extname(filePath)
@@ -1176,23 +1335,44 @@ export default class TaroMiniPlugin {
   }
 
   /**
-   * 小程序全局样式文件中引入 common chunks 中的公共样式文件
+   * 获取公共样式文件名
    */
-  injectCommonStyles ({ assets }: webpack.compilation.Compilation) {
+  getCommonStyleAssets ({ assets }: webpack.compilation.Compilation) {
+    const commonStyleAssetNames: string[] = []
+
     const styleExt = this.options.fileType.style
-    const appStyle = `app${styleExt}`
     const REG_STYLE_EXT = new RegExp(`\\.(${styleExt.replace('.', '')})(\\?.*)?$`)
 
-    if (!assets[appStyle]) return
-
-    const commons = new ConcatSource('')
-
-    // 组件公共样式需要放在 app 全局样式之后：https://github.com/NervJS/taro/pull/6125
     Object.keys(assets).forEach(assetName => {
       const fileName = path.basename(assetName, path.extname(assetName))
       if ((REG_STYLE.test(assetName) || REG_STYLE_EXT.test(assetName)) && this.options.commonChunks.includes(fileName)) {
-        commons.add('\n')
-        commons.add(`@import ${JSON.stringify(urlToRequest(assetName))};`)
+        commonStyleAssetNames.push(assetName)
+      }
+    })
+
+    return commonStyleAssetNames
+  }
+
+  /**
+   * 小程序全局样式文件中引入 common chunks 中的公共样式文件
+   */
+  injectCommonStyles (compilation: webpack.compilation.Compilation) {
+    const { assets } = compilation
+    const styleExt = this.options.fileType.style
+    const appStyle = `app${styleExt}`
+
+    if (!assets[appStyle]) return
+
+    const originSource: string = assets[appStyle].source()
+    const commons = new ConcatSource('')
+    commons.add(originSource)
+
+    this.getCommonStyleAssets(compilation).forEach(assetName => {
+      commons.add('\n')
+      commons.add(`@import ${JSON.stringify(urlToRequest(assetName))};`)
+      assets[appStyle] = {
+        size: () => commons.source().length,
+        source: () => commons.source()
       }
     })
 

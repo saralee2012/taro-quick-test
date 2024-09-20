@@ -113,7 +113,7 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
   let prepareMountList: (() => void)[] = []
 
   function setCurrentRouter (page: MpInstance) {
-    const router = isWeb ? page.$taroPath : page.route || page.__route__ || page.$taroPath
+    const router = isWeb ? page.$taroPath : page.route || page.__route__ || page.$taroPath || (page as any).$page.path 
     Current.router = {
       params: page.$taroParams!,
       path: addLeadingSlash(router),
@@ -122,6 +122,7 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
       onShow: getOnShowEventKey(id),
       onHide: getOnHideEventKey(id)
     }
+
     if (!isUndefined(page.exitState)) {
       Current.router.exitState = page.exitState
     }
@@ -204,7 +205,9 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
         safeExecute(this.$taroPath, ON_READY)
         // 通过事件触发子组件的生命周期
         raf(() => eventCenter.trigger(getOnReadyEventKey(id)))
-        this.onReady.called = true
+        if(this.onReady) {
+          this.onReady.called = true
+        }
       })
     },
     [ONSHOW] (options = {}) {
@@ -371,5 +374,79 @@ export function createRecursiveComponentConfig (componentName?: string) {
       eh: eventHandler
     },
     ...lifeCycles
+  }
+}
+
+export function createQuickAppConfig () {
+  function isTextNode (nn: string) {
+    return nn === '#text'
+  }
+
+  function isTextElement (nn: string) {
+    return nn === 'text' || nn === 'static-text'
+  }
+
+  function nodeName ([nn, nnParent]: string[]) {
+    if (isTextNode(nn) || isTextElement(nn)) {
+      return isTextElement(nnParent) ? 'span' : 'text'
+    }
+
+    switch (nn) {
+      case 'view':
+      case 'catch-view':
+      case 'static-view':
+      case 'pure-view':
+        return 'div'
+      case 'static-image':
+        return 'image'
+      default:
+        return nn
+    }
+  }
+
+  return {
+    props: {
+      i: Object,
+      nn: {
+        type: String,
+        default: 'view'
+      }
+    },
+    eh (event) {
+      // 快应用的event.type是只读的
+      const mpEvent = {
+        type: event.type,
+        target: event.target,
+        currentTarget: event.currentTarget,
+        detail: event.detail
+      }
+      const extraKeys = Object.keys(event)
+        .filter(Object.hasOwnProperty.bind(event))
+        .filter(k => k[0] !== '_')
+        .filter(k => {
+          return k !== 'type' && k !== 'detail' && k !== 'target' && k !== 'currentTarget'
+        })
+      const extraData = {}
+      extraKeys.forEach(k => {
+        extraData[k] = event[k]
+        mpEvent[k] = event[k]
+      })
+
+      const touchAndMouseKeys = ['touches', 'changedTouches', 'clientX', 'clientY', 'pageX', 'pageY', 'offsetX', 'offsetY']
+      touchAndMouseKeys.forEach(k => {
+        if (k in event) {
+          extraData[k] = event[k]
+          mpEvent[k] = event[k]
+        }
+      })
+
+      if (!('detail' in event)) {
+        mpEvent.detail = extraData
+      }
+
+      return eventHandler.call(this, mpEvent)
+    },
+    // 过滤器
+    nodeName
   }
 }

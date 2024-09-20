@@ -30,14 +30,14 @@ export {
   addLeadingSlash,
   createComponentConfig,
   createPageConfig,
+  createQuickAppConfig,
   createRecursiveComponentConfig,
   getPageInstance,
   getPath,
   injectPageInstance,
   removePageInstance,
   safeExecute,
-  stringify
-} from './dsl/common'
+  stringify } from './dsl/common'
 export * from './emitter/emitter'
 export { hydrate } from './hydrate'
 export { nextTick } from './next-tick'

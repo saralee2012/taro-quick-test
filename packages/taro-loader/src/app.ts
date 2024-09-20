@@ -2,6 +2,7 @@ import { normalizePath } from '@tarojs/helper'
 import { getOptions, stringifyRequest } from 'loader-utils'
 
 import { REG_POST } from './constants'
+import { quickAppExportStr } from './utils'
 
 import type * as webpack from 'webpack'
 
@@ -41,7 +42,10 @@ var app = ${createApp}
 app.onLaunch()
 exports.taroApp = app
 `
-    : `var inst = App(${createApp})`
+    : `
+var inst = App(${createApp})
+${quickAppExportStr}
+`
 
   if (typeof modifyInstantiate === 'function') {
     instantiateApp = modifyInstantiate(instantiateApp, 'app')

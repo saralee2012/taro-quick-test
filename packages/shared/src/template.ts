@@ -23,17 +23,17 @@ import { isBooleanStringLiteral, isFunction, isNumber, isString } from './is'
 import { Shortcuts } from './shortcuts'
 import { capitalize, getComponentsAlias, hasOwn, indent, toCamelCase, toDashed, toKebabCase } from './utils'
 
-interface Component {
+export interface Component {
   nodeName: string
   nodeAlias: string
   attributes: Attributes
 }
 
-interface Components {
+export interface Components {
   [key: string]: Record<string, string>
 }
 
-interface ComponentConfig {
+export interface ComponentConfig {
   includes: Set<string>
   exclude: Set<string>
   thirdPartyComponents: Map<string, Set<string>>

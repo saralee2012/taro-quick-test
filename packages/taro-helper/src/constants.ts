@@ -181,6 +181,7 @@ export const UPDATE_PACKAGE_LIST = [
   '@tarojs/plugin-mini-ci',
   '@tarojs/webpack5-runner',
   '@tarojs/webpack5-prebundle',
+  '@tarojs/plugin-platform-quickapp'
 ]
 
 export enum META_TYPE {

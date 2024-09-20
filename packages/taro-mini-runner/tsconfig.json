@@ -14,5 +14,5 @@
     "typeRoots": ["./types", "./node_modules/@types", "../../node_modules/@types"]
   },
   "include": ["./src", "./types"],
-  "exclude": ["./src/__tests__", "./src/template/comp.ts", "./src/quickapp", "./src/loaders/quickappStyleLoader.ts"]
+  "exclude": ["./src/__tests__", "./src/template/comp.ts", "./src/loaders/quickappStyleLoader.ts"]
 }

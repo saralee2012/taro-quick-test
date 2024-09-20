@@ -193,6 +193,11 @@ export default (appPath: string, mode, config: Partial<IBuildConfig>): any => {
     location: ['@tarojs/runtime', 'location'],
     URLSearchParams: ['@tarojs/runtime', 'URLSearchParams'],
     URL: ['@tarojs/runtime', 'URL'],
+    ...isBuildQuickapp ? {
+      App: [path.resolve(__dirname, '..', 'quickapp/script/app'), 'App'],
+      Page: [path.resolve(__dirname, '..', 'quickapp/script/page'), 'Page'],
+      Component: [path.resolve(__dirname, '..', 'quickapp/script/component'), 'Component']
+    } : {}
   })
 
   const isCssoEnabled = !((csso && csso.enable === false))

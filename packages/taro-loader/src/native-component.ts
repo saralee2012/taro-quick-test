@@ -3,6 +3,7 @@ import { getOptions, stringifyRequest } from 'loader-utils'
 import * as path from 'path'
 
 import { getPageConfig } from './page'
+import { quickAppExportStr } from './utils'
 
 import type * as webpack from 'webpack'
 
@@ -38,6 +39,7 @@ ${importFrameworkStatement}
 var component = require(${stringify(componentPath)}).default
 var config = ${configString};
 var inst = Component(createNativeComponentConfig(component, ${frameworkArgs}))
+${quickAppExportStr}
 ${options.prerender ? prerender : ''}
 export default component
 `

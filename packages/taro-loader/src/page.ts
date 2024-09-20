@@ -2,6 +2,8 @@ import { normalizePath } from '@tarojs/helper'
 import { getOptions, stringifyRequest } from 'loader-utils'
 import * as path from 'path'
 
+import { quickAppExportStr } from './utils'
+
 import type * as webpack from 'webpack'
 
 interface PageConfig {
@@ -53,6 +55,7 @@ var config = ${configString};
 ${config.enableShareTimeline ? 'component.enableShareTimeline = true' : ''}
 ${config.enableShareAppMessage ? 'component.enableShareAppMessage = true' : ''}
 ${instantiatePage}
+${quickAppExportStr}
 ${options.prerender ? prerender : ''}
 ${hmr}
 export default component

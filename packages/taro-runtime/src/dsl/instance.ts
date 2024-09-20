@@ -91,3 +91,17 @@ export interface AppInstance extends Show {
   taroGlobalData?: Record<any, any>
   config?: Record<any, any>
 }
+
+export interface ComponentInstance {
+  externalClasses?: string[]
+  behaviors?: any
+  data?: Record<string, unknown>
+  options?: Record<string, unknown>
+  attached?(): void
+  detached?(): void
+  pageLifetimes?: {
+    show?(): void
+    hide?(): void
+  }
+  methods?: Record<string, (...args: any[]) => any>
+}

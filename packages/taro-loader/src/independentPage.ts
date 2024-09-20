@@ -2,8 +2,10 @@ import { getOptions, stringifyRequest } from 'loader-utils'
 import * as path from 'path'
 
 import { REG_POST } from './constants'
+import { quickAppExportStr } from './utils'
 
 import type * as webpack from 'webpack'
+
 
 interface PageConfig {
   content: any
@@ -62,6 +64,7 @@ var component = require(${stringify(componentPath)}).default
 ${config.enableShareTimeline ? 'component.enableShareTimeline = true' : ''}
 ${config.enableShareAppMessage ? 'component.enableShareAppMessage = true' : ''}
 var inst = Page(createPageConfig(component, '${options.name}', {}, config || {}))
+${quickAppExportStr}
 ${options.prerender ? prerender : ''}
 export default component
 `

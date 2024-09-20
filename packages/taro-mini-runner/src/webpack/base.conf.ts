@@ -1,9 +1,19 @@
+import { isQuickAppPkg } from '@tarojs/helper'
 import { MultiPlatformPlugin } from '@tarojs/runner-utils'
 import * as Chain from 'webpack-chain'
 
 export default (_appPath: string) => {
   const chain = new Chain()
   chain.merge({
+    externals: [
+      /** 快应用自身使用的npm包 */
+      function (context, request, callback) {
+        if (isQuickAppPkg(request)) {
+          return callback(null, 'commonjs ' + request)
+        }
+        callback()
+      }
+    ],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.vue'],
       mainFields: ['browser', 'module', 'jsnext:main', 'main'],
