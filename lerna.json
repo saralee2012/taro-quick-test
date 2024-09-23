@@ -1,0 +1,46 @@
+{
+  "lerna": "3.20.1",
+  "packages": [
+    "packages/babel-plugin-transform-taroapi",
+    "packages/babel-preset-taro",
+    "packages/eslint-config-taro",
+    "packages/eslint-plugin-taro",
+    "packages/postcss-plugin-constparse",
+    "packages/postcss-pxtransform",
+    "packages/postcss-html-transform",
+    "packages/shared",
+    "packages/taro",
+    "packages/taro-api",
+    "packages/taro-cli",
+    "packages/taro-components",
+    "packages/taro-components-react",
+    "packages/taro-extend",
+    "packages/taro-helper",
+    "packages/taro-loader",
+    "packages/taro-mini-runner",
+    "packages/taro-react",
+    "packages/taro-router",
+    "packages/taro-runner-utils",
+    "packages/taro-runtime",
+    "packages/taro-service",
+    "packages/taro-webpack-runner",
+    "packages/taro-with-weapp",
+    "packages/taroize",
+    "packages/taro-weapp",
+    "packages/taro-swan",
+    "packages/taro-quickapp",
+    "packages/taro-plugin-html",
+    "packages/taro-plugin-react-devtools"
+  ],
+  "command": {
+    "publish": {
+      "message": "chore(release): publish %s"
+    },
+    "create": {
+      "homepage": "https://github.com/nervjs/taro",
+      "license": "MIT"
+    }
+  },
+  "version": "3.3.3",
+  "npmClient": "yarn"
+}
