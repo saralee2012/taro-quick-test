@@ -1,0 +1,61 @@
+{
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ]
+    },
+    "test": {
+      "dependsOn": []
+    },
+    "test:ci": {
+      "dependsOn": []
+    },
+    "//test": {
+      "dependsOn": []
+    },
+    "dev": {
+      "dependsOn": []
+    },
+    "test:dev": {
+      "dependsOn": []
+    },
+    "test:coverage": {
+      "dependsOn": []
+    },
+    "updateSnapshot": {
+      "dependsOn": []
+    },
+    "prod": {
+      "dependsOn": []
+    },
+    "clean": {
+      "dependsOn": []
+    },
+    "lint": {
+      "dependsOn": []
+    },
+    "lint:typecheck": {
+      "dependsOn": []
+    },
+    "build-h5": {
+      "dependsOn": []
+    },
+    "test:debug": {
+      "dependsOn": []
+    },
+    "prepack": {
+      "dependsOn": []
+    },
+    "mv:comp": {
+      "dependsOn": []
+    },
+    "tsc": {
+      "dependsOn": []
+    }
+  }
+}

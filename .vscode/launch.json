@@ -9,13 +9,11 @@
     "request": "launch",
     "name": "CLI debug",
     "program": "${workspaceFolder}/packages/taro-cli/bin/taro",
-    // "cwd": "${project absolute path}",
-    // "args": [
-    //   "build",
-    //   "--type",
-    //   "weapp",
-    //   "--watch"
-    // ],
+    "cwd": "/Users/yetherine/2018/code/小程序/frontsh/taro3/",
+    "args": [
+      "init",
+      "taroSourceDemo"
+    ],
     "skipFiles": [
       "<node_internals>/**"
     ]
