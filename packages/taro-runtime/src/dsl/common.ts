@@ -148,11 +148,21 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
         this.$taroParams = uniqueOptions
       }
 
+<<<<<<< HEAD
       setCurrentRouter(this)
 
       // 初始化当前页面的上下文信息
       if (!isWeb) {
         window.trigger(CONTEXT_ACTIONS.INIT, $taroPath)
+=======
+      const router = isBrowser ? this.$taroPath : this.route || this.__route__ || (this as any).$page.path
+      Current.router = {
+        params: this.$taroParams,
+        path: addLeadingSlash(router),
+        onReady: getOnReadyEventKey(id),
+        onShow: getOnShowEventKey(id),
+        onHide: getOnHideEventKey(id)
+>>>>>>> d62fc14f243 (feat: 解决iHooks未定义)
       }
 
       const mount = () => {
