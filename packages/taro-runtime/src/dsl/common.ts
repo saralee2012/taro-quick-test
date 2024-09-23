@@ -111,7 +111,7 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
         this.$taroParams = Object.assign({}, options)
       }
 
-      const router = isBrowser ? this.$taroPath : this.route || this.__route__ || this.$page.path
+      const router = isBrowser ? this.$taroPath : this.route || this.__route__ || (this as any).$page.path
       Current.router = {
         params: this.$taroParams,
         path: addLeadingSlash(router),
