@@ -1,6 +1,6 @@
 /* eslint-disable dot-notation */
 import UniversalRouter, { Routes } from 'universal-router'
-import { Listener as LocationListener, State as LocationState, Action as LocationAction } from 'history'
+import { Action as LocationAction } from 'history'
 import { createPageConfig, Current, eventCenter, container, SERVICE_IDENTIFIER, stringify, requestAnimationFrame } from '@tarojs/runtime'
 import { qs } from './qs'
 import { history, parsePath } from './history'
@@ -114,8 +114,7 @@ export function createRouter (
 
   const router = new UniversalRouter(routes, { baseUrl: config.router.basename || '' })
   app.onLaunch!()
-
-  const render: LocationListener<LocationState> = throttle(async ({ location, action }) => {
+  const render: any = throttle(async ({ location, action }) => {
     routerConfig.router.pathname = location.pathname
     let element
     try {

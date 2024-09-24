@@ -9,10 +9,14 @@
     "request": "launch",
     "name": "CLI debug",
     "program": "${workspaceFolder}/packages/taro-cli/bin/taro",
-    "cwd": "/Users/yetherine/2018/code/小程序/frontsh/taro3/",
+    "cwd": "/Users/yetherine/2018/code/小程序/frontsh/taro3/test/quickDemo",
+    "console": "integratedTerminal",
+    "runtimeExecutable": "/Users/yetherine/.nvm/versions/node/v16.20.0/bin/node",
     "args": [
-      "init",
-      "taroSourceDemo"
+      "build",
+      "--type",
+      "quickapp",
+      "--watch"
     ],
     "skipFiles": [
       "<node_internals>/**"

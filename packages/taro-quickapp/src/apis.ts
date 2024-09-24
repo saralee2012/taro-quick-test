@@ -1,5 +1,5 @@
-import * as supportApi from './api'
+// import * as supportApi from './api'
 
 export function initNativeApi (taro) {
-  Object.assign(taro, supportApi)
+  Object.assign(taro, {})
 }
