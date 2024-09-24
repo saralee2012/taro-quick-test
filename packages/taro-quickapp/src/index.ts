@@ -97,7 +97,7 @@ async function prepareQuickAppEnvironment ({
   if (fs.existsSync(path.join(originalOutputRoot, 'sign'))) {
     needDownload = false
   } else {
-    needDownload = true
+    needDownload = false
   }
   if (needDownload) {
     const getSpinner = ora('开始下载快应用运行容器...').start()
