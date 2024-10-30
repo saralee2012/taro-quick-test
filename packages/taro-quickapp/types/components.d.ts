@@ -1,5 +1,5 @@
 export declare const components: {
-    QkDiv: {
+    View: {
         enablevideofullscreencontainer: string;
     };
     QkList: {
@@ -33,7 +33,7 @@ export declare const components: {
     QkStack: {
         bindFullScreenChange: string;
     };
-    QkSwiper: {
+    Swiper: {
         index: string;
         autoplay: string;
         interval: string;
@@ -59,7 +59,7 @@ export declare const components: {
     QkA: {
         href: string;
     };
-    QkImage: {
+    Image: {
         src: string;
         alt: string;
         autoplay: string;
@@ -136,7 +136,7 @@ export declare const components: {
         bindSelectionChange: string;
         bindLineChange: string;
     };
-    QkVideo: {
+    Video: {
         src: string;
         autoplay: string;
         poster: string;

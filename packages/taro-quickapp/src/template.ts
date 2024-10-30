@@ -66,7 +66,6 @@ export class Template extends UnRecursiveTemplate {
     }
 
     let templ = ''
-
     for (let i = 0; i < this.baseLevel; i++) {
       const thisIName = i === 0 ? 'i' : `i${i}`
       const childIName = `i${i + 1}`
