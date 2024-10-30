@@ -1,7 +1,7 @@
 import { singleQuote } from '@tarojs/shared'
 
 export const components = {
-  QkDiv: {
+  View: {
     enablevideofullscreencontainer: 'false'
   },
   QkList: {
@@ -35,7 +35,7 @@ export const components = {
   QkStack: {
     bindFullScreenChange: ''
   },
-  QkSwiper: {
+  Swiper: {
     index: '0',
     autoplay: 'false',
     interval: '3000',
@@ -61,7 +61,7 @@ export const components = {
   QkA: {
     href: singleQuote('')
   },
-  QkImage: {
+  Image: {
     src: singleQuote(''),
     alt: singleQuote(''),
     autoplay: 'true',
@@ -138,7 +138,7 @@ export const components = {
     bindSelectionChange: '',
     bindLineChange: ''
   },
-  QkVideo: {
+  Video: {
     src: singleQuote(''),
     autoplay: 'false',
     poster: singleQuote(''),

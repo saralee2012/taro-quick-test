@@ -1078,7 +1078,7 @@ declare module '@tarojs/components' {
    * @supported quickapp
    * @see https://doc.quickapp.cn/widgets/video.html
    */
-  export const QkVideo: ComponentType<VideoProps>
+  //export const Video: ComponentType<VideoProps>
 
   /**
    * 相机组件
