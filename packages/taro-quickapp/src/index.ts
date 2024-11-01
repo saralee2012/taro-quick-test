@@ -113,6 +113,8 @@ async function prepareQuickAppEnvironment ({
   } else {
     needInstall = true
   }
+  // 跳过快应用依赖安装
+  needInstall = false
   if (needInstall) {
     let command
     if (shouldUseYarn()) {

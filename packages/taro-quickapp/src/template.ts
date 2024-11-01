@@ -128,6 +128,7 @@ ${this.buildCompTempl(mergedAttributes, componentConfig)}
   }
 
   public buildCustomComponentTemplate = (_: string) => {
-    throw new Error('快应用不需要生成custom-wrapper')
+    // throw new Error('快应用不需要生成custom-wrapper')
+    return ''
   }
 }
