@@ -152,18 +152,10 @@
     "vue": "^2.6.11",
     "vue-loader": "^17.0.0",
     "vue-template-compiler": "^2.6.11",
-<<<<<<< HEAD
     "webpack": "5.78.0",
     "webpack-chain": "6.5.1",
     "webpack-dev-server": "4.7.4",
     "webpack-sources": "^3.2.3"
-=======
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2",
-    "webpack-merge": "^4.2.2",
-    "lerna": "3.20.1"
->>>>>>> 22441a39aa4 (feat: 降级lerna版本重新安装依赖)
   },
   "pnpm": {
     "packageExtensions": {
