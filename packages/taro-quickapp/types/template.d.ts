@@ -1,4 +1,5 @@
-import { ComponentConfig, UnRecursiveTemplate } from '@tarojs/shared/dist/template';
+import { UnRecursiveTemplate } from '@tarojs/shared/dist/template';
+import type { IComponentConfig } from '@tarojs/taro/types/compile/hooks';
 export declare class Template extends UnRecursiveTemplate {
     Adapter: {
         if: string;
@@ -21,7 +22,7 @@ export declare class Template extends UnRecursiveTemplate {
         onlongpress: string;
     };
     private buildCompTempl;
-    buildTemplate: (componentConfig: ComponentConfig) => string;
+    buildTemplate: (componentConfig: IComponentConfig) => string;
     buildPageTemplate: (_baseTempPath: string) => string;
-    buildCustomComponentTemplate: (_: string) => never;
+    buildCustomComponentTemplate: (_: string) => string;
 }

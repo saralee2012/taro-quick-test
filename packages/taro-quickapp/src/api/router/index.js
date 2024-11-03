@@ -1,4 +1,5 @@
 import router from '@system.router'
+
 import * as path from '../path'
 
 export function navigateTo (options = {}) {

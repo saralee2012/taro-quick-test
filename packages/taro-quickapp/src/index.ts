@@ -1,10 +1,12 @@
-import QuickApp from './program'
-import type { IPluginContext } from '@tarojs/service'
-import { downloadGithubRepoLatestRelease } from './compile-utils'
-import path from 'path'
 import { execSync } from 'child_process'
 import ora from 'ora'
+import path from 'path'
+
+import { downloadGithubRepoLatestRelease } from './compile-utils'
 import defaultManifestJSON from './manifest.default.json'
+import QuickApp from './program'
+
+import type { IPluginContext } from '@tarojs/service'
 
 // 让其它平台插件可以继承此平台
 export { QuickApp }

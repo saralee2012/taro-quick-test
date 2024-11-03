@@ -1,6 +1,9 @@
-import { ComponentConfig, Attributes, UnRecursiveTemplate } from '@tarojs/shared/dist/template'
-import { toKebabCase, toCamelCase } from '@tarojs/shared'
+import { toCamelCase,toKebabCase } from '@tarojs/shared'
+import { Attributes, UnRecursiveTemplate } from '@tarojs/shared/dist/template'
+
 import { components as internalComponents } from './components'
+
+import type { IComponentConfig } from '@tarojs/taro/types/compile/hooks'
 
 export class Template extends UnRecursiveTemplate {
   Adapter = {
@@ -33,7 +36,7 @@ export class Template extends UnRecursiveTemplate {
     }
   }
 
-  private buildCompTempl (mergedAttributes: Attributes, componentConfig: ComponentConfig) {
+  private buildCompTempl (mergedAttributes: Attributes, componentConfig: IComponentConfig) {
     const Adapter = this.Adapter
 
     // 给文本标签用
@@ -88,7 +91,7 @@ export class Template extends UnRecursiveTemplate {
     return templ
   }
 
-  public buildTemplate = (componentConfig: ComponentConfig) => {
+  public buildTemplate = (componentConfig: IComponentConfig) => {
     if (!this.miniComponents) {
       this.miniComponents = this.createMiniComponents(internalComponents)
     }
