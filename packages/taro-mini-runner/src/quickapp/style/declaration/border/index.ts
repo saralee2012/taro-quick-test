@@ -60,16 +60,16 @@ export default {
       declaration.value = value
     }
   },
-  'border-top': (value, declaration, addDeclaration) => {
+  'border-top': (value, addDeclaration) => {
     return setStyle('top', value, addDeclaration)
   },
-  'border-bottom': (value, declaration, addDeclaration) => {
+  'border-bottom': (value, addDeclaration) => {
     return setStyle('bottom', value, addDeclaration)
   },
-  'border-left': (value, declaration, addDeclaration) => {
+  'border-left': (value, addDeclaration) => {
     return setStyle('left', value, addDeclaration)
   },
-  'border-right': (value, declaration, addDeclaration) => {
+  'border-right': (value, addDeclaration) => {
     return setStyle('right', value, addDeclaration)
   },
   'border-left-width': (value, declaration, _) => {

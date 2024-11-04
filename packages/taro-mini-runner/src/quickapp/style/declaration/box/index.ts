@@ -2,7 +2,7 @@ export default {
   'box-sizing': 'I:',
   'box-flex': 'I:',
   'box-align': 'I:',
-  'box-orient': (value, declaration, addDeclaration) => {
+  'box-orient': (value, addDeclaration) => {
     const boxOrient = {
       horizontal: 'row',
       vertical: 'row-reverse',

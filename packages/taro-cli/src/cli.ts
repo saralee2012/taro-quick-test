@@ -88,7 +88,6 @@ export default class CLI {
       kernel.cliCommands = commandPlugins
         .filter(commandFileName => /^[\w-]+(\.[\w-]+)*\.js$/.test(commandFileName))
         .map(fileName => fileName.replace(/\.js$/, ''))
-
       switch (command) {
         case 'inspect':
         case 'build': {
@@ -106,6 +105,9 @@ export default class CLI {
             case 'jd':
             case 'h5':
               kernel.optsPlugins.push(`@tarojs/plugin-platform-${platform}`)
+              break
+            case 'quickapp':
+              kernel.optsPlugins.push(path.resolve('../../taro/packages/taro-quickapp/index.js'))
               break
             default: {
               // plugin, rn

@@ -18,7 +18,7 @@ function setValue (index, value, addDeclaration) {
 }
 
 export default {
-  animation: (value, declaration, addDeclaration) => {
+  animation: (value, addDeclaration) => {
     if (~value.indexOf('steps')) {
       value = value.replace(/steps.+end\)/, 'linear')
     }

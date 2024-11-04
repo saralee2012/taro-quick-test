@@ -13,7 +13,7 @@ export default {
     return setValue(value, declaration)
   },
   // 'display': '',
-  display: (value, declaration, addDeclaration, rule) => {
+  display: (value, addDeclaration, rule) => {
     // 暂时忽略掉不支持的情况
     if (!~['flex', 'none'].indexOf(value)) {
       return 'E:'

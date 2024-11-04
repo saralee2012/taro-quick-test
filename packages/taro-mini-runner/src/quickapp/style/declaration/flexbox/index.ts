@@ -1,5 +1,5 @@
 export default {
-  flex: (value, declaration, addDeclaration) => {
+  flex: (value, addDeclaration) => {
     const props = ['grow', 'shrink', 'basis']
     if (value.match(/\s+/g)) {
       const values = value.split(' ')

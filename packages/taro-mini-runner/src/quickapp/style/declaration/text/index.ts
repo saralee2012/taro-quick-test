@@ -5,7 +5,7 @@ export default {
     }
   },
   'line-height': '',
-  'text-align': (value, declaration, addDeclaration) => {
+  'text-align': (value, addDeclaration) => {
     addDeclaration('align-items', 'center')
     addDeclaration('justify-content', 'center')
     if (~value.indexOf('justify')) {
@@ -27,7 +27,7 @@ export default {
   'word-wrap': 'I:',
   'word-break': 'I:',
   'text-align-last': 'I:',
-  'line-clamp': (value, declaration, addDeclaration) => {
+  'line-clamp': (value, addDeclaration) => {
     if (value > 0) {
       addDeclaration('lines', value)
     }
