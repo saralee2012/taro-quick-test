@@ -14,3 +14,7 @@ export function getPkgVersion (): string {
 
   return 'unknown'
 }
+
+export const quickAppExportStr = `
+export default inst
+`
