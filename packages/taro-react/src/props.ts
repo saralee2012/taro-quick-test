@@ -1,5 +1,5 @@
-import { container, FormElement, IHooks, SERVICE_IDENTIFIER, Style, TaroElement } from '@tarojs/runtime'
-import { capitalize, isFunction, isNumber, isObject, isString, toCamelCase } from '@tarojs/shared'
+import { FormElement, Style, TaroElement } from '@tarojs/runtime'
+import { capitalize, internalComponents,isFunction, isNumber, isObject, isString, toCamelCase } from '@tarojs/shared'
 
 export type Props = Record<string, unknown>
 
@@ -57,8 +57,12 @@ function setEvent (dom: TaroElement, name: string, value: unknown, oldValue?: un
 
   const compName = capitalize(toCamelCase(dom.tagName.toLowerCase()))
 
-  const runtimeHooks = container.get<IHooks>(SERVICE_IDENTIFIER.Hooks)
-  eventName = runtimeHooks.modifyBindEventName(eventName, compName)
+  // const runtimeHooks = container.get<IHooks>(SERVICE_IDENTIFIER.Hooks)
+  // eventName = runtimeHooks.modifyBindEventName(eventName, compName)
+  // TODO: 是否影响快应用事件
+  if (eventName === 'click' && compName in internalComponents) {
+    eventName = 'tap'
+  }
 
   if (isFunction(value)) {
     if (oldValue) {
