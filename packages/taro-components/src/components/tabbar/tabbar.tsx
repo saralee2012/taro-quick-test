@@ -1,5 +1,5 @@
 import { Component, Prop, h, ComponentInterface, Host, State, Event, EventEmitter, Element } from '@stencil/core'
-import Taro from '@tarojs/taro'
+import * as Taro from '@tarojs/taro'
 import { addLeadingSlash, getCurrentPage, stripBasename, stripSuffix } from '@tarojs/router/dist/utils'
 import { IH5RouterConfig } from '@tarojs/taro/types/compile'
 import classNames from 'classnames'

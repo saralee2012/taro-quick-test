@@ -1,5 +1,5 @@
 import { Component, Prop, h, ComponentInterface, Host, Listen, Event, EventEmitter } from '@stencil/core'
-import Taro from '@tarojs/taro'
+import * as Taro from '@tarojs/taro'
 import classNames from 'classnames'
 
 /**

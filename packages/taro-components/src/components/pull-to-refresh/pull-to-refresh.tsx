@@ -1,5 +1,5 @@
 import { Component, Prop, h, ComponentInterface, Host, State, Event, EventEmitter, Watch, Element } from '@stencil/core'
-import Taro from '@tarojs/taro'
+import * as Taro from '@tarojs/taro'
 import classNames from 'classnames'
 
 function setTransform (nodeStyle, value) {

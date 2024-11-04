@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { FunctionalComponent, h } from '@stencil/core'
-import Taro from '@tarojs/taro'
+import * as Taro from '@tarojs/taro'
 
 import { isVisible } from '../../utils'
 
