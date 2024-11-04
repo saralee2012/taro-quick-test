@@ -2,7 +2,7 @@ import { normalizePath } from '@tarojs/helper'
 import { getOptions, stringifyRequest } from 'loader-utils'
 
 import { REG_POST } from './constants'
-import { quickAppExportStr } from './utils'
+import { quickAppExportStr } from './util'
 
 import type * as webpack from 'webpack'
 
