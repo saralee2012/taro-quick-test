@@ -1,5 +1,6 @@
 import { recursiveMerge } from '@tarojs/helper'
 import { PLATFORM_TYPE } from '@tarojs/shared'
+import * as path from 'path'
 
 import { getPkgVersion } from '../utils/package'
 import TaroPlatform from './platform'
@@ -81,18 +82,18 @@ ${exampleCommand}`))
    */
   protected async getRunner () {
     const { appPath } = this.ctx.paths
-    const { npm } = this.helper
+    // const { npm } = this.helper
 
     let runnerPkg: string
     switch (this.compiler) {
       case 'webpack5':
-        runnerPkg = '@tarojs/webpack5-runner'
+        runnerPkg = path.resolve('../../taro/packages/taro-webpack5-runner/index.js')
         break
       default:
-        runnerPkg = '@tarojs/mini-runner'
+        runnerPkg = path.resolve('../../taro/packages/taro-mini-runner/index.js')
     }
 
-    const runner = await npm.getNpmPkg(runnerPkg, appPath)
+    const runner = require(runnerPkg)
 
     return runner.bind(null, appPath)
   }

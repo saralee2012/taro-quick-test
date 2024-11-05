@@ -1,10 +1,20 @@
 const { join } = require('path')
 const typescript = require('rollup-plugin-typescript2')
 const jsonResolve = require('@rollup/plugin-json')
+
 const cwd = __dirname
 
 const base = {
-  external: ['@tarojs/shared', '@tarojs/service', '@tarojs/taro', 'request', 'fs-extra', 'ora'],
+  external: [
+    '@tarojs/shared', 
+    '@tarojs/service', 
+    '@tarojs/taro', 
+    'request', 
+    'fs-extra', 
+    'ora',
+    '@system.contact',
+    '@system.sms'
+  ],
   plugins: [
     jsonResolve(),
     typescript({
