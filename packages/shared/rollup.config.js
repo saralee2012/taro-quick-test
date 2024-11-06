@@ -1,6 +1,8 @@
-import typescript from 'rollup-plugin-typescript2'
-
+const typescript = require('rollup-plugin-typescript2')
 const { join } = require('path')
+
+console.log(typescript, 'typescript')
+
 
 const cwd = __dirname
 

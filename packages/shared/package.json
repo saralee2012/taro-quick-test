@@ -24,5 +24,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "rollup-plugin-typescript2": "^0.24.3"
   }
 }
