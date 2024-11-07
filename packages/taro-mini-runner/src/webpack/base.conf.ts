@@ -7,7 +7,7 @@ export default (_appPath: string) => {
   chain.merge({
     externals: [
       /** 快应用自身使用的npm包 */
-      function (request, callback) {
+      function (_context, request, callback) {
         if (isQuickAppPkg(request)) {
           return callback(null, 'commonjs ' + request)
         }
