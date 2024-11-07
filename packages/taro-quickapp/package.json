@@ -27,10 +27,10 @@
     "url": "https://github.com/NervJS/taro/issues"
   },
   "dependencies": {
-    "@tarojs/components": "3.3.3",
-    "@tarojs/service": "3.3.3",
-    "@tarojs/shared": "3.3.3",
-    "@tarojs/taro": "3.3.3",
+    "@tarojs/components": "workspace:*",
+    "@tarojs/service": "workspace:*",
+    "@tarojs/shared": "workspace:*",
+    "@tarojs/taro": "workspace:*",
     "ora": "^2.0.0",
     "request": "^2.88.0"
   },
