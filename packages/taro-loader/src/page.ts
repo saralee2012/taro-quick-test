@@ -58,7 +58,6 @@ ${instantiatePage}
 ${quickAppExportStr}
 ${options.prerender ? prerender : ''}
 ${hmr}
-export default component
 `
 }
 
@@ -77,3 +76,4 @@ export function getPageConfig (configs: Record<string, PageConfig>, resourcePath
 function removeExt (file: string) {
   return path.join(path.dirname(file), path.basename(file, path.extname(file)))
 }
+
