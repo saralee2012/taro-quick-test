@@ -40,7 +40,7 @@ export function hydrate (node: TaroElement | TaroText): MiniData {
   if (isText(node)) {
     return {
       [Shortcuts.Text]: node.nodeValue,
-      [Shortcuts.NodeName]: componentsAlias[nodeName]._num
+      [Shortcuts.NodeName]: nodeName // TODO: 只有快应用需替换
     }
   }
 
@@ -102,7 +102,7 @@ export function hydrate (node: TaroElement | TaroText): MiniData {
   const nn = data[Shortcuts.NodeName]
   const componentAlias = componentsAlias[nn]
   if (componentAlias) {
-    data[Shortcuts.NodeName] = componentAlias._num
+    data[Shortcuts.NodeName] = nodeName // TODO: 只有快应用需替换
     for (const prop in data) {
       if (prop in componentAlias) {
         data[componentAlias[prop]] = data[prop]

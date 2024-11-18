@@ -97,7 +97,6 @@ export default class CLI {
 
           // 针对不同的内置平台注册对应的端平台插件
           switch (platform) {
-            case 'weapp':
             case 'alipay':
             case 'swan':
             case 'tt':
@@ -105,6 +104,9 @@ export default class CLI {
             case 'jd':
             case 'h5':
               kernel.optsPlugins.push(`@tarojs/plugin-platform-${platform}`)
+              break
+            case 'weapp':
+              kernel.optsPlugins.push(path.resolve('../../taro/packages/taro-weapp/index.js'))
               break
             case 'quickapp':
               kernel.optsPlugins.push(path.resolve('../../taro/packages/taro-quickapp/index.js'))
