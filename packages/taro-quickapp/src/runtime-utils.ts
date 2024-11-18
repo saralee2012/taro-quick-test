@@ -21,7 +21,7 @@ export const hostConfig = {
   getPathIndex (indexOfNode) {
     return `${indexOfNode}`
   },
-  modifyBindEventName (eventName: string, _compName: string) {
-    return eventName
-  }
+  // modifyBindEventName (eventName: string, _compName: string) {
+  //   return eventName
+  // }
 }
