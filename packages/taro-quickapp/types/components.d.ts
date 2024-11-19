@@ -2,16 +2,27 @@ export declare const components: {
     View: {
         enablevideofullscreencontainer: string;
     };
-    QkList: {
+    List: {
         scrollpage: string;
+        layoutType: string;
         bindScroll: string;
         bindScrollBottom: string;
         bindScrollTop: string;
         bindScrollEnd: string;
         bindScrollTouchUp: string;
     };
-    QkListItem: {
+    ListItem: {
         type: string;
+        disallowintercept: string;
+    };
+    ScrollView: {
+        scrollpage: string;
+        layoutType: string;
+        bindScroll: string;
+        bindScrollBottom: string;
+        bindScrollTop: string;
+        bindScrollEnd: string;
+        bindScrollTouchUp: string;
     };
     QkPopup: {
         target: string;

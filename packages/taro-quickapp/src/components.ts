@@ -4,16 +4,27 @@ export const components = {
   View: {
     enablevideofullscreencontainer: 'false'
   },
-  QkList: {
+  List: {
     scrollpage: 'false',
+    layoutType: 'grid',
     bindScroll: '',
     bindScrollBottom: '',
     bindScrollTop: '',
     bindScrollEnd: '',
     bindScrollTouchUp: ''
   },
-  QkListItem: {
-    type: singleQuote('')
+  ListItem: {
+    type: singleQuote(''),
+    disallowintercept: 'false'
+  },
+  ScrollView: {
+    scrollpage: 'false',
+    layoutType: 'grid',
+    bindScroll: '',
+    bindScrollBottom: '',
+    bindScrollTop: '',
+    bindScrollEnd: '',
+    bindScrollTouchUp: ''
   },
   QkPopup: {
     target: singleQuote(''),
