@@ -116,7 +116,7 @@ export class BaseTemplate {
         let component = components[key]
         const compName = toDashed(key)
         const newComp: Record<string, string> = Object.create(null)
-        const componentAlias = this.componentsAlias[compName]
+        const componentAlias = this.componentsAlias ? this.componentsAlias[compName] : {};
 
         if (isFunction(this.modifyCompProps)) {
           component = this.modifyCompProps(compName, component)
