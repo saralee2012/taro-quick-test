@@ -1057,7 +1057,7 @@ declare module '@tarojs/components' {
    * @supported quickapp
    * @see https://doc.quickapp.cn/widgets/slider.html
    */
-  export const QkSlider: ComponentType<SliderProps>
+  //export const QkSlider: ComponentType<SliderProps>
 
   /**
    * 开关选择

@@ -26,7 +26,6 @@ export declare const QkLabel = "label";
 export declare const QkOption = "option";
 export declare const QkPicker = "picker";
 export declare const QkSelect = "select";
-export declare const QkSlider = "slider";
 export declare const QkSwitch = "switch";
 export declare const QkTextArea = "textarea";
 export declare const Video = "video";

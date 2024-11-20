@@ -131,13 +131,6 @@ export const components = {
   QkSelect: {
     bindChange: ''
   },
-  QkSlider: {
-    min: '0',
-    max: '100',
-    step: '1',
-    value: '0',
-    bindChange: ''
-  },
   QkSwitch: {
     checked: 'false',
     bindChange: ''

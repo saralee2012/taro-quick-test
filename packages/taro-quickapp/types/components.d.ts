@@ -129,13 +129,6 @@ export declare const components: {
     QkSelect: {
         bindChange: string;
     };
-    QkSlider: {
-        min: string;
-        max: string;
-        step: string;
-        value: string;
-        bindChange: string;
-    };
     QkSwitch: {
         checked: string;
         bindChange: string;
