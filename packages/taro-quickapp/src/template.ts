@@ -73,7 +73,7 @@ export class Template extends UnRecursiveTemplate {
       const parentNN = i === 0 ? 'nn' : i === 1 ? 'i.nn' : `i${i - 1}.nn`
       const nodeNameStr = `[${thisIName}.nn, ${parentNN}] | nodeName`
       templ += `
-      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid}}" ${buildAttributesStr(thisIName)}>
+      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" ${buildAttributesStr(thisIName)}>
         <block ${Adapter.for}="{{${childIName} in ${thisIName}.cn}}" ${Adapter.key}="uid">`
 
       if (i === this.baseLevel - 1) {
