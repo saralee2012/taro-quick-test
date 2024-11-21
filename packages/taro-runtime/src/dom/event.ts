@@ -96,8 +96,11 @@ export class TaroEvent {
         this.cacheCurrentTarget = this.target
         return this.target
       }
+      for(const key in element.dataset) {
+        currentTarget.dataset[key] = element.dataset[key]
+      }
 
-      currentTarget.dataset = element.dataset
+      // currentTarget.dataset = element.dataset
 
       for (const key in this.mpEvent?.detail) {
         currentTarget[key] = this.mpEvent!.detail[key]
