@@ -100,7 +100,7 @@ export const components = {
     bindFinish: '',
     bindStart: ''
   },
-  QkInput: {
+  Input: {
     type: singleQuote('text'),
     checked: 'false',
     name: singleQuote(''),
@@ -135,7 +135,7 @@ export const components = {
     checked: 'false',
     bindChange: ''
   },
-  QkTextArea: {
+  TextArea: {
     placeholder: singleQuote(''),
     maxlength: '100',
     bindChange: '',

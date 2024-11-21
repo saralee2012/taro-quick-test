@@ -98,7 +98,7 @@ export declare const components: {
         bindFinish: string;
         bindStart: string;
     };
-    QkInput: {
+    Input: {
         type: string;
         checked: string;
         name: string;
@@ -133,7 +133,7 @@ export declare const components: {
         checked: string;
         bindChange: string;
     };
-    QkTextArea: {
+    TextArea: {
         placeholder: string;
         maxlength: string;
         bindChange: string;
