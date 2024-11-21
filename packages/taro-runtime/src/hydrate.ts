@@ -103,12 +103,13 @@ export function hydrate (node: TaroElement | TaroText): MiniData {
   const componentAlias = componentsAlias[nn]
   if (componentAlias) {
     data[Shortcuts.NodeName] = nodeName // TODO: 只有快应用需替换
-    for (const prop in data) {
-      if (prop in componentAlias) {
-        data[componentAlias[prop]] = data[prop]
-        delete data[prop]
-      }
-    }
+    // TODO: 只有快应用不需要替换组件属性name
+    // for (const prop in data) {
+    //   if (prop in componentAlias) {
+    //     data[componentAlias[prop]] = data[prop]
+    //     delete data[prop]
+    //   }
+    // }
   }
 
   return data
