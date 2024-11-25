@@ -1,6 +1,9 @@
 const pxRegex = require('./lib/pixel-unit-regex')
 const PXRegex = require('./lib/pixel-upper-unit-regex')
+const rpxRegex = require('./lib/rpx-unit-regex')
+
 const filterPropList = require('./lib/filter-prop-list')
+
 
 const defaults = {
   rootValue: 16,
@@ -40,12 +43,13 @@ let targetUnit
 
 module.exports = (options = {}) => {
   options = Object.assign({}, DEFAULT_WEAPP_OPTIONS, options)
-
   const transUnits = ['px']
   const baseFontSize = options.baseFontSize || (options.minRootSize >= 1 ? options.minRootSize : 20)
   const designWidth = (input) =>
     typeof options.designWidth === 'function' ? options.designWidth(input) : options.designWidth
 
+
+  
   switch (options.platform) {
     case 'h5': {
       targetUnit = options.targetUnit ?? 'rem'
@@ -116,7 +120,6 @@ module.exports = (options = {}) => {
 
       /** 是否跳过当前文件不处理 */
       let skip = false
-
       return {
         // 注意：钩子在节点变动时会重新执行，Once，OnceExit只执行一次，https://github.com/NervJS/taro/issues/13238
         Comment (comment) {
@@ -181,6 +184,7 @@ module.exports = (options = {}) => {
           }
         },
         Declaration (decl) {
+          console.log(options.platform, 'platform-declaration')
           if (skip) return
 
           if (decl[processed]) return
@@ -192,6 +196,12 @@ module.exports = (options = {}) => {
             if (decl.value.indexOf('PX') === -1) return
             const value = decl.value.replace(PXRegex, function (m, _$1, $2) {
               return m.replace($2, 'vp')
+            })
+            decl.value = value
+          } else if(options.platform === 'quickapp') {
+            if (decl.value.indexOf('rpx') === -1) return
+            const value = decl.value.replace(rpxRegex, function (m, _$1, $2) {
+              return m.replace($2, 'px')
             })
             decl.value = value
           } else {
@@ -211,7 +221,9 @@ module.exports = (options = {}) => {
           }
         },
         AtRule: {
+
           media: (rule) => {
+            console.log(options.platform, 'platform-media')
             if (skip) return
             if (options.platform === 'harmony') {
               if (rule.params.indexOf('PX') === -1) return

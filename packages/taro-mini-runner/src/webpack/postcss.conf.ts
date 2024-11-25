@@ -65,7 +65,7 @@ export const getPostcssPlugins = function (appPath: string, {
     plugins.push(autoprefixer(autoprefixerOption.config))
   }
 
-  if (pxtransformOption.enable && !isBuildQuickapp) {
+  if (pxtransformOption.enable) {
     const pxtransform = require('postcss-pxtransform')
     plugins.push(pxtransform(pxtransformOption.config))
   }
