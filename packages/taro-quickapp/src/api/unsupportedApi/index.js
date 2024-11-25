@@ -220,7 +220,6 @@ export const getExtConfig = temporarilyNotSupport('getExtConfig')
 // 开放接口
 export const login = temporarilyNotSupport('login')
 export const checkSession = temporarilyNotSupport('checkSession')
-export const authorize = temporarilyNotSupport('authorize')
 export const getUserInfo = temporarilyNotSupport('getUserInfo')
 export const checkIsSupportFacialRecognition = temporarilyNotSupport('checkIsSupportFacialRecognition')
 export const startFacialRecognitionVerify = temporarilyNotSupport('startFacialRecognitionVerify')

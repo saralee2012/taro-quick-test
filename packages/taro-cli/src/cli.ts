@@ -106,10 +106,10 @@ export default class CLI {
               kernel.optsPlugins.push(`@tarojs/plugin-platform-${platform}`)
               break
             case 'weapp':
-              kernel.optsPlugins.push(path.resolve('../../taro/packages/taro-weapp/index.js'))
+              kernel.optsPlugins.push(path.resolve('../../../git/taro-quick-test/packages/taro-weapp/index.js'))
               break
             case 'quickapp':
-              kernel.optsPlugins.push(path.resolve('../../taro/packages/taro-quickapp/index.js'))
+              kernel.optsPlugins.push(path.resolve('../../../git/taro-quick-test/packages/taro-quickapp/index.js'))
               break
             default: {
               // plugin, rn

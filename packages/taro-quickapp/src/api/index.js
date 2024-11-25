@@ -1,6 +1,7 @@
 // 未实现
 
 // 已实现 api
+export * from './account/index'
 export * from './device/index'
 export * from './equipment/index'
 export * from './interactive/index'
