@@ -194,10 +194,11 @@ export class TaroElement extends TaroNode {
 
     hooks.call('modifySetAttrPayload', this, qualifiedName, payload, componentsAlias)
 
-    if (_alias) {
-      const qualifiedNameAlias = _alias[qualifiedNameInCamelCase] || qualifiedName
-      payload.path = `${_path}.${toCamelCase(qualifiedNameAlias)}`
-    }
+    // TODO: 快应用不需要map属性到pi上
+    // if (_alias) {
+    //   const qualifiedNameAlias = _alias[qualifiedNameInCamelCase] || qualifiedName
+    //   payload.path = `${_path}.${toCamelCase(qualifiedNameAlias)}`
+    // }
 
     this.enqueueUpdate(payload)
 
