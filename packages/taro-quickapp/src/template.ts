@@ -117,7 +117,7 @@ ${this.buildCompTempl(mergedAttributes, componentConfig)}
     const template = `
 <import name="base" src="./base"></import>
 <template>
-  <div id="taro-page" style="flex-direction: column;">
+  <div id="taro-page">
     <block ${Adapter.for}="{{root.cn}}" ${Adapter.key}="uid">
       <base i="{{$item}}"></base>
     </block>

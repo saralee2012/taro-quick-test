@@ -184,7 +184,6 @@ module.exports = (options = {}) => {
           }
         },
         Declaration (decl) {
-          console.log(options.platform, 'platform-declaration')
           if (skip) return
 
           if (decl[processed]) return

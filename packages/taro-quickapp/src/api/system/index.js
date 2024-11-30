@@ -1,5 +1,8 @@
 import device from '@system.device'
+
 import { generateUnSupportApi } from '../utils'
+
+let _systemInfo
 
 export function getSystemInfo (options = {}) {
   const { success, fail, complete } = options
@@ -9,6 +12,7 @@ export function getSystemInfo (options = {}) {
     device.getInfo({
       success (data) {
         res.result = data
+        _systemInfo = data
         success && success(data)
         resolve(data)
       },
@@ -24,6 +28,14 @@ export function getSystemInfo (options = {}) {
     })
   })
 }
+
+export function getSystemInfoSync () {
+  if(_systemInfo) {
+    return _systemInfo
+  }
+  return {}
+}
+
 
 export function getSystemId (options = {}) {
   const { success, fail, complete, type } = options
@@ -200,14 +212,15 @@ export function getSystemPlatform () {
   return device.platform
 }
 
-let unSupportApis = ['getSystemInfoSync']
-unSupportApis = generateUnSupportApi(
-  '快应用暂不支持SystemInfo的同步接口',
-  unSupportApis
-)
+// let unSupportApis = []
+// unSupportApis = generateUnSupportApi(
+//   '快应用暂不支持SystemInfo的同步接口',
+//   unSupportApis
+// )
 
 const qSystem = {
   getSystemInfo,
+  getSystemInfoSync,
   getSystemId,
   getSystemDeviceId,
   getSystemUserId,
@@ -219,6 +232,6 @@ const qSystem = {
   getSystemPlatform
 }
 
-Object.assign(qSystem, unSupportApis)
+// Object.assign(qSystem, unSupportApis)
 
 export default qSystem
