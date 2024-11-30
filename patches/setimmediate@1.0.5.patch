@@ -1,0 +1,22 @@
+diff --git a/setImmediate.js b/setImmediate.js
+index 3c1b06e6ecd7b98d9dbb20ba416fdfbb8919f5ba..6306f5173623d21e4559ba60d24869938a65394b 100644
+--- a/setImmediate.js
++++ b/setImmediate.js
+@@ -60,7 +60,7 @@
+         if (currentlyRunningATask) {
+             // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+             // "too much recursion" error.
+-            setTimeout(runIfPresent, 0, handle);
++            setTimeout(runIfPresent.bind(null, handle), 0, handle);
+         } else {
+             var task = tasksByHandle[handle];
+             if (task) {
+@@ -151,7 +151,7 @@
+ 
+     function installSetTimeoutImplementation() {
+         registerImmediate = function(handle) {
+-            setTimeout(runIfPresent, 0, handle);
++            setTimeout(runIfPresent.bind(null, handle), 0, handle);
+         };
+     }
+ 

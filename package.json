@@ -176,6 +176,9 @@
           }
         }
       }
+    },
+    "patchedDependencies": {
+      "setimmediate@1.0.5": "patches/setimmediate@1.0.5.patch"
     }
   }
 }
