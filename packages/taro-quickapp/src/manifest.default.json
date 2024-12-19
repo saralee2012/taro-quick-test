@@ -1,6 +1,6 @@
 {
-  "package": "com.application.demo",
-  "name": "TaroQuickApp",
+  "package": "com.iqiyi.quickapp",
+  "name": "iqiyi",
   "versionName": "1.0.0",
   "versionCode": 1,
   "minPlatformVersion": 1090,
@@ -23,7 +23,9 @@
     { "name": "system.audio" },
     { "name": "system.record" },
     { "name": "system.contact" },
-    { "name": "system.sms" }
+    { "name": "system.sms" },
+    { "name": "service.account" },
+    { "name": "hap.io.MessageChannel" }
   ],
   "icon": "logo.png",
   "permissions": [

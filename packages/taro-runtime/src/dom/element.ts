@@ -178,7 +178,7 @@ export class TaroElement extends TaroNode {
     if (!this._root) return
 
     const componentsAlias = getComponentsAlias()
-    const _alias = componentsAlias[this.nodeName]
+    // const _alias = componentsAlias[this.nodeName]
     const viewAlias = componentsAlias[VIEW]._num
     const staticViewAlias = componentsAlias[STATIC_VIEW]._num
     const catchViewAlias = componentsAlias[CATCH_VIEW]._num
@@ -312,7 +312,6 @@ export class TaroElement extends TaroNode {
 
   public dispatchEvent (event: TaroEvent): boolean {
     const cancelable = event.cancelable
-
     const listeners = this.__handlers[event.type]
 
     if (!isArray(listeners)) {

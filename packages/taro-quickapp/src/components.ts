@@ -11,7 +11,8 @@ export const components = {
     bindScrollBottom: '',
     bindScrollTop: '',
     bindScrollEnd: '',
-    bindScrollTouchUp: ''
+    bindScrollTouchUp: '',
+    
   },
   ListItem: {
     type: singleQuote(''),
@@ -24,7 +25,7 @@ export const components = {
     bindScrollBottom: '',
     bindScrollTop: '',
     bindScrollEnd: '',
-    bindScrollTouchUp: ''
+    bindScrollTouchUp: '',
   },
   QkPopup: {
     target: singleQuote(''),

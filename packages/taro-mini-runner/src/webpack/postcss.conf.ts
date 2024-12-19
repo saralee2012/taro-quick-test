@@ -43,7 +43,7 @@ const optionsWithDefaults = ['autoprefixer', 'pxtransform', 'cssModules', 'url',
 const plugins = [] as any[]
 
 export const getPostcssPlugins = function (appPath: string, {
-  isBuildQuickapp = false,
+  // isBuildQuickapp = false,
   designWidth,
   deviceRatio,
   postcssOption = {} as IPostcssOption

@@ -302,7 +302,7 @@ export const getModule = (appPath: string, {
     {
       postcssOptions: {
         plugins: getPostcssPlugins(appPath, {
-          isBuildQuickapp,
+          // isBuildQuickapp,
           designWidth,
           deviceRatio,
           postcssOption

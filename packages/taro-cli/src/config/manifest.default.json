@@ -1,6 +1,6 @@
 {
-  "package": "com.application.demo",
-  "name": "TaroQuickApp",
+  "package": "com.iqiyi.quickapp",
+  "name": "iqiyi",
   "versionName": "1.0.0",
   "versionCode": 1,
   "minPlatformVersion": 1040,
