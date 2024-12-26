@@ -87,10 +87,10 @@ ${exampleCommand}`))
     let runnerPkg: string
     switch (this.compiler) {
       case 'webpack5':
-        runnerPkg = path.resolve('../../taro/packages/taro-webpack5-runner/index.js')
+        runnerPkg = path.resolve('../../../git/taro-quick-test/packages/taro-webpack5-runner/index.js')
         break
       default:
-        runnerPkg = path.resolve('../../taro/packages/taro-mini-runner/index.js')
+        runnerPkg = path.resolve('../../../git/taro-quick-test/packages/taro-mini-runner/index.js')
     }
 
     const runner = require(runnerPkg)
