@@ -81,6 +81,10 @@ export function clearStorage () {
   return storage.clear()
 }
 
+export function getStorageModule () {
+  return storage
+}
+
 let unSupportApis = ['setStorageSync', 'getStorageSync', 'getStorageInfoSync', 'removeStorageSync', 'clearStorageSync']
 unSupportApis = generateUnSupportApi(
   '快应用暂不支持storage的同步存取',
@@ -92,7 +96,8 @@ const qStorage = {
   getStorage,
   getStorageInfo,
   removeStorage,
-  clearStorage
+  clearStorage,
+  getStorageModule
 }
 
 Object.assign(qStorage, unSupportApis)

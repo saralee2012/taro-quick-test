@@ -187,6 +187,10 @@ export function getLocation (options = {}) {
   })
 }
 
+export function getGeolocationModule () {
+  return geolocation
+}
+
 export default {
   scanCode,
   vibrateShort,
@@ -199,5 +203,6 @@ export default {
   startCompass,
   stopCompass,
   onCompassChange,
-  getLocation
+  getLocation,
+  getGeolocationModule
 }

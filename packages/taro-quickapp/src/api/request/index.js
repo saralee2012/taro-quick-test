@@ -183,8 +183,13 @@ export function downloadFile (options = {}) {
   })
 }
 
+export function getFetchModule () {
+  return fetch
+}
+
 export default {
   request,
   uploadFile,
-  downloadFile
+  downloadFile,
+  getFetchModule
 }

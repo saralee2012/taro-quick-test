@@ -21,6 +21,11 @@ export function authorize (opts = {}) {
   })
 }
 
+export function getAccountModule () {
+  return account
+}
+
 export default {
-  authorize
+  authorize,
+  getAccountModule
 }

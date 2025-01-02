@@ -212,6 +212,10 @@ export function getSystemPlatform () {
   return device.platform
 }
 
+export function getDeviceModule () {
+  return device
+}
+
 // let unSupportApis = []
 // unSupportApis = generateUnSupportApi(
 //   '快应用暂不支持SystemInfo的同步接口',
@@ -229,7 +233,8 @@ const qSystem = {
   getSystemTotalStorage,
   getSystemAvailableStorage,
   getSystemCpuInfo,
-  getSystemPlatform
+  getSystemPlatform,
+  getDeviceModule
 }
 
 // Object.assign(qSystem, unSupportApis)

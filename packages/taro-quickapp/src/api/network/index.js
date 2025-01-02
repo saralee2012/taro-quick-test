@@ -35,3 +35,14 @@ export function onNetworkStatusChange (callback) {
 export function offNetworkStatusChange () {
   network.unsubscribe()
 }
+
+export function getNetworkModule () {
+  return network
+}
+
+export default {
+  getNetworkType,
+  onNetworkStatusChange,
+  offNetworkStatusChange,
+  getNetworkModule
+}
