@@ -1,7 +1,8 @@
-import { toCamelCase,toKebabCase } from '@tarojs/shared'
+// import { toCamelCase,toKebabCase } from '@tarojs/shared'
 import { Attributes, UnRecursiveTemplate } from '@tarojs/shared/dist/template'
 
 import { components as internalComponents } from './components'
+import { componentArray } from './customComponents'
 
 export class Template extends UnRecursiveTemplate {
   Adapter = {
@@ -45,13 +46,18 @@ export class Template extends UnRecursiveTemplate {
     const buildAttributesStr = (iName: string) => {
       const baseAttrStr = Object.keys(mergedAttributes)
         .map(k => {
+          if(k.startsWith('bind') || k.startsWith('on') || k.startsWith('catch')) {
+            return `${k}="${mergedAttributes[k]}"`
+          } else {
+            return ''
+          }
           if (k === 'value') {
             return `${k}="{{${iName}.v || (${mergedAttributes[k].replace(/i\./g, `${iName}.`)})}}"`
           }
           return `${k}="${k.startsWith('bind') || k.startsWith('on') || k.startsWith('catch') ? mergedAttributes[k] : `{{${mergedAttributes[k].replace(/i\./g, `${iName}.`)}}}`}"`
         })
         .join(' ')
-      let thirdAttrStr = ''
+      // let thirdAttrStr = ''
       componentConfig.thirdPartyComponents.forEach(v => {
         v.forEach(attr => {
           if (attr.startsWith('on')) {
@@ -59,21 +65,24 @@ export class Template extends UnRecursiveTemplate {
             // const value = attr.slice(2).toLowerCase()
             // thirdAttrStr += `on${value}="eh" `
           } else {
-            thirdAttrStr += `${toKebabCase(attr)}="{{${iName}.${toCamelCase(attr)}}}" `
+            // thirdAttrStr += `${toKebabCase(attr)}="{{${iName}.${toCamelCase(attr)}}}" `
           }
         })
       })
-      return baseAttrStr + ' ' + thirdAttrStr
+      // return baseAttrStr + ' ' + thirdAttrStr
+      return baseAttrStr
     }
 
     let templ = ''
     for (let i = 0; i < this.baseLevel; i++) {
+      
       const thisIName = i === 0 ? 'i' : `i${i}`
       const childIName = `i${i + 1}`
       const parentNN = i === 0 ? 'nn' : i === 1 ? 'i.nn' : `i${i - 1}.nn`
       const nodeNameStr = `[${thisIName}.nn, ${parentNN}] | nodeName`
+      buildAttributesStr(thisIName)
       templ += `
-      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" ${buildAttributesStr(thisIName)}>
+      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" props="{{${thisIName}}}">
         <block ${Adapter.for}="{{${childIName} in ${thisIName}.cn}}" ${Adapter.key}="uid">`
 
       if (i === this.baseLevel - 1) {
@@ -113,9 +122,13 @@ ${this.buildCompTempl(mergedAttributes, componentConfig)}
 
   public buildPageTemplate = (_baseTempPath: string) => {
     const Adapter = this.Adapter
-
+    let customCompStr = ''
+    componentArray.forEach(item => {
+      customCompStr += `<import name="${item}" src="./${item}"></import>`
+    })
     const template = `
 <import name="base" src="./base"></import>
+${customCompStr}
 <template>
   <div id="taro-page">
     <block ${Adapter.for}="{{root.cn}}" ${Adapter.key}="uid">

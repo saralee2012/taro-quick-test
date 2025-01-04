@@ -31,6 +31,7 @@ import { ConcatSource } from 'webpack-sources'
 
 import TaroSingleEntryDependency from '../dependencies/TaroSingleEntryDependency'
 import { validatePrerenderPages } from '../prerender/prerender'
+import { customComponentsObj as customComponents } from '../quickapp/template/customComponents'
 import { componentConfig } from '../template/component'
 import { generateQuickAppManifest } from '../utils/helper'
 import TaroLoadChunksPlugin from './TaroLoadChunksPlugin'
@@ -479,6 +480,10 @@ export default class TaroMiniPlugin {
     })
     if (this.options.isBuildQuickapp) {
       this.addEntry(path.resolve(__dirname, '..', 'template/quickapp'), 'quickapp', META_TYPE.STATIC)
+      Object.keys(customComponents).forEach(item => {
+        this.addEntry(path.resolve(__dirname, '..', `template/${item}`), `quickapp${item}`, META_TYPE.STATIC)
+      })
+
     } else if (!template.isSupportRecursive) {
       this.addEntry(path.resolve(__dirname, '..', 'template/comp'), this.getIsBuildPluginPath('comp', true), META_TYPE.STATIC)
     }
@@ -650,6 +655,9 @@ export default class TaroMiniPlugin {
     this.addEntry(this.appEntry, 'app', META_TYPE.ENTRY)
     if (this.options.isBuildQuickapp) {
       this.addEntry(path.resolve(__dirname, '..', 'template/quickapp'), 'quickapp', META_TYPE.STATIC)
+      Object.keys(customComponents).forEach(item => {
+        this.addEntry(path.resolve(__dirname, '..', `template/${item}`), `quickapp${item}`, META_TYPE.STATIC)
+      })
     } else if (!template.isSupportRecursive) {
       this.addEntry(path.resolve(__dirname, '..', 'template/comp'), this.getIsBuildPluginPath('comp', false), META_TYPE.STATIC)
     }
@@ -1072,6 +1080,9 @@ export default class TaroMiniPlugin {
     if (this.options.isBuildQuickapp) {
       // 删除快应用模版
       delete compilation.assets[`quickapp${this.options.fileType.script}`]
+      Object.keys(customComponents).forEach(item => {
+        delete compilation.assets[`quickapp${item}${this.options.fileType.script}`]
+      })
     } else {
       this.injectCommonStyles(compilation)
     }
@@ -1128,10 +1139,11 @@ export default class TaroMiniPlugin {
     }).join('\n') + templStr
 
     let baseTemplInfo: {
-      fileTemplName: string,
+      fileTemplName: string
       templStr: string
     } | undefined
 
+    const baseCustomInfoObj = {} as any
     if (componentName !== 'app') {
       let templStr = this.options.template.buildTemplate(componentConfig)
       if (this.options.minifyXML?.collapseWhitespace) {
@@ -1140,16 +1152,27 @@ export default class TaroMiniPlugin {
           keepClosingSlash: true
         })
       }
+      
       baseTemplInfo = {
         fileTemplName: path.join(componentName, '..', `base${this.options.fileType.templ}`),
         templStr
       }
+      Object.keys(customComponents).forEach(item => {
+        const scriptContent = compilation.assets[`quickapp${item}${this.options.fileType.script}`].source()
+        baseCustomInfoObj[item] = {
+          fileTemplName: path.join(componentName, '..', `${item}${this.options.fileType.templ}`),
+          templStr: customComponents[item] + `\n<script>module.exports=${scriptContent}</script>`
+        } 
+      })
     }
 
     if (baseTemplInfo) {
       const scriptContent = compilation.assets[`quickapp${this.options.fileType.script}`].source()
       baseTemplInfo.templStr += `\n<script>module.exports=${scriptContent}</script>`
     }
+    
+
+    
 
     let hitScriptItem
 
@@ -1170,11 +1193,31 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
 ` + baseTemplInfo.templStr
       }
 
+      Object.keys(baseCustomInfoObj).forEach(innerItem => {
+        if(baseCustomInfoObj[innerItem] && fileStyleName.indexOf(item) >= 0) {
+          const appFileStyleName = this.getStylePath('app')
+          const appRelativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, appFileStyleName))
+          const relativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, fileStyleName))
+          baseCustomInfoObj[innerItem].templStr = `<style>
+@import '${appRelativeStylePath}';
+${this.getCommonStyleAssets(compilation).map(assetName => {
+    const relativeStylePath = promoteRelativePath(path.relative(fileTemplName, assetName))
+    return `@import '${relativeStylePath}';`
+  }).join('\n')
+}
+@import '${relativeStylePath}';
+</style>
+` + baseCustomInfoObj[innerItem].templStr
+
+        }
+      })
+
       if (fileScriptName.indexOf(item) >= 0) {
         const assetItem = compilation.assets[item]
         const scriptContent = assetItem.source()
         hitScriptItem = item
         templStr += `\n<script>${scriptContent}</script>`
+        
       }
     })
 
@@ -1187,6 +1230,14 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
       source: () => templStr
     }
 
+    Object.keys(baseCustomInfoObj).forEach(innerItem => {
+      if(baseCustomInfoObj[innerItem]) {
+        compilation.assets[baseCustomInfoObj[innerItem].fileTemplName] = {
+          size: () => baseCustomInfoObj[innerItem]!.templStr.length,
+          source: () => baseCustomInfoObj[innerItem]!.templStr
+        }
+      }
+    })
     if (baseTemplInfo) {
       compilation.assets[baseTemplInfo.fileTemplName] = {
         size: () => baseTemplInfo!.templStr.length,
@@ -1210,7 +1261,6 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
 
   generateTemplateFile (compilation: webpack.compilation.Compilation, filePath: string, templateFn: (...args) => string, ...options) {
     let templStr = templateFn(...options)
-
     const componentName = this.getComponentName(filePath)
     const fileTemplName = this.getTemplatePath(componentName)
 

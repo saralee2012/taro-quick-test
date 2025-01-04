@@ -388,7 +388,7 @@ export function createQuickAppConfig () {
 
   function nodeName ([nn, nnParent]: string[]) {
     if (isTextNode(nn) || isTextElement(nn)) {
-      return isTextElement(nnParent) ? 'span' : 'text'
+      return isTextElement(nnParent) ? 'qktext' : 'qktext'
     }
 
     switch (nn) {
@@ -396,11 +396,11 @@ export function createQuickAppConfig () {
       case 'catch-view':
       case 'static-view':
       case 'pure-view':
-        return 'div'
+        return 'qkdiv'
       case 'static-image':
-        return 'image'
+        return 'qkimage'
       default:
-        return nn
+        return `qk${nn}`
     }
   }
 
@@ -448,5 +448,114 @@ export function createQuickAppConfig () {
     },
     // 过滤器
     nodeName
+  }
+}
+
+function quickCustomModule() {
+  return {
+    eh (event) {
+      // 快应用的event.type是只读的
+      const mpEvent = {
+        type: event.type,
+        target: event.target,
+        currentTarget: event.currentTarget,
+        detail: event.detail
+      }
+      const extraKeys = Object.keys(event)
+        .filter(Object.hasOwnProperty.bind(event))
+        .filter(k => k[0] !== '_')
+        .filter(k => {
+          return k !== 'type' && k !== 'detail' && k !== 'target' && k !== 'currentTarget'
+        })
+      const extraData = {}
+      extraKeys.forEach(k => {
+        extraData[k] = event[k]
+        mpEvent[k] = event[k]
+      })
+
+      const touchAndMouseKeys = ['touches', 'changedTouches', 'clientX', 'clientY', 'pageX', 'pageY', 'offsetX', 'offsetY']
+      touchAndMouseKeys.forEach(k => {
+        if (k in event) {
+          extraData[k] = event[k]
+          mpEvent[k] = event[k]
+        }
+      })
+
+      if (!('detail' in event)) {
+        mpEvent.detail = extraData
+      }
+      return eventHandler.call(this, mpEvent)
+    }
+  }
+}
+
+export function createQkdivCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQktextCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQkspanCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQkimageCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQklistCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+export function createQklistitemCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQkvideoCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQktextareaCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
   }
 }
