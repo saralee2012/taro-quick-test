@@ -388,7 +388,7 @@ export function createQuickAppConfig () {
 
   function nodeName ([nn, nnParent]: string[]) {
     if (isTextNode(nn) || isTextElement(nn)) {
-      return isTextElement(nnParent) ? 'qktext' : 'qktext'
+      return isTextElement(nnParent) ? 'qkspan' : 'qktext'
     }
 
     switch (nn) {
@@ -451,7 +451,7 @@ export function createQuickAppConfig () {
   }
 }
 
-function quickCustomModule() {
+function quickCustomModule () {
   return {
     eh (event) {
       // 快应用的event.type是只读的
@@ -546,10 +546,42 @@ export function createQkvideoCompConfig () {
   const commonModule = quickCustomModule()
   return {
     ...commonModule,
+    private: {
+      height: 0,
+      width: 0
+    },
     onInit () {
+      this.$on('getHeight', this.getHeight)
+    },
+    getHeight () {
+      const id = this.props.sid
+      if(this.height > 0) {
+        this.$dispatch('setHeight', {
+          height: this.height,
+          width: this.width
+        })
+        return 
+      }
+      if(id) {
+        const that = this
+        this.$element(id).getBoundingClientRect({
+          success (res) {
+            if(res.height > 0) {
+              that.height = res.height
+              that.width = res.width
+              that.$dispatch('setHeight', {
+                height: res.height,
+                width: res.width
+              })
+            }
+          }
+        })
+      }
     }
+    
   }
 }
+
 
 export function createQktextareaCompConfig () {
   const commonModule = quickCustomModule()
