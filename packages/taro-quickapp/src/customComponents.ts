@@ -6,7 +6,10 @@ const componentArray =  [
   'qklist',
   'qklist-item',
   'qkvideo',
-  'qktextarea'
+  'qktextarea',
+  'qktabs',
+  'qktab-bar',
+  'qktab-content'
 ]
 
 export { componentArray }  

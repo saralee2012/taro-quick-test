@@ -2,7 +2,7 @@
 import { Attributes, UnRecursiveTemplate } from '@tarojs/shared/dist/template'
 
 import { components as internalComponents } from './components'
-import { componentArray } from './customComponents'
+// import { componentArray } from './customComponents'
 
 export class Template extends UnRecursiveTemplate {
   Adapter = {
@@ -46,11 +46,9 @@ export class Template extends UnRecursiveTemplate {
     const buildAttributesStr = (iName: string) => {
       const baseAttrStr = Object.keys(mergedAttributes)
         .map(k => {
-          if(k.startsWith('bind') || k.startsWith('on') || k.startsWith('catch')) {
-            return `${k}="${mergedAttributes[k]}"`
-          } else {
-            return ''
-          }
+          // if(k.startsWith('bind') || k.startsWith('on') || k.startsWith('catch')) {
+          //   return `${k}="${mergedAttributes[k]}"`
+          // } 
           if (k === 'value') {
             return `${k}="{{${iName}.v || (${mergedAttributes[k].replace(/i\./g, `${iName}.`)})}}"`
           }
@@ -82,7 +80,7 @@ export class Template extends UnRecursiveTemplate {
       const nodeNameStr = `[${thisIName}.nn, ${parentNN}] | nodeName`
       buildAttributesStr(thisIName)
       templ += `
-      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" props="{{${thisIName}}}">
+      <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" ${buildAttributesStr(thisIName)}>
         <block ${Adapter.for}="{{${childIName} in ${thisIName}.cn}}" ${Adapter.key}="uid">`
 
       if (i === this.baseLevel - 1) {
@@ -122,13 +120,13 @@ ${this.buildCompTempl(mergedAttributes, componentConfig)}
 
   public buildPageTemplate = (_baseTempPath: string) => {
     const Adapter = this.Adapter
-    let customCompStr = ''
-    componentArray.forEach(item => {
-      customCompStr += `<import name="${item}" src="./${item}"></import>`
-    })
+    // let customCompStr = ''
+    // componentArray.forEach(item => {
+    //   customCompStr += `<import name="${item}" src="./${item}"></import>`
+    // })
+
     const template = `
 <import name="base" src="./base"></import>
-${customCompStr}
 <template>
   <div id="taro-page">
     <block ${Adapter.for}="{{root.cn}}" ${Adapter.key}="uid">

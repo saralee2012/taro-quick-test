@@ -480,9 +480,9 @@ export default class TaroMiniPlugin {
     })
     if (this.options.isBuildQuickapp) {
       this.addEntry(path.resolve(__dirname, '..', 'template/quickapp'), 'quickapp', META_TYPE.STATIC)
-      Object.keys(customComponents).forEach(item => {
-        this.addEntry(path.resolve(__dirname, '..', `template/${item}`), `quickapp${item}`, META_TYPE.STATIC)
-      })
+      // Object.keys(customComponents).forEach(item => {
+      //   this.addEntry(path.resolve(__dirname, '..', `template/${item}`), `quickapp${item}`, META_TYPE.STATIC)
+      // })
 
     } else if (!template.isSupportRecursive) {
       this.addEntry(path.resolve(__dirname, '..', 'template/comp'), this.getIsBuildPluginPath('comp', true), META_TYPE.STATIC)
@@ -1143,7 +1143,7 @@ export default class TaroMiniPlugin {
       templStr: string
     } | undefined
 
-    const baseCustomInfoObj = {} as any
+    // const baseCustomInfoObj = {} as any
     if (componentName !== 'app') {
       let templStr = this.options.template.buildTemplate(componentConfig)
       if (this.options.minifyXML?.collapseWhitespace) {
@@ -1157,13 +1157,13 @@ export default class TaroMiniPlugin {
         fileTemplName: path.join(componentName, '..', `base${this.options.fileType.templ}`),
         templStr
       }
-      Object.keys(customComponents).forEach(item => {
-        const scriptContent = compilation.assets[`quickapp${item}${this.options.fileType.script}`].source()
-        baseCustomInfoObj[item] = {
-          fileTemplName: path.join(componentName, '..', `${item}${this.options.fileType.templ}`),
-          templStr: customComponents[item] + `\n<script>module.exports=${scriptContent}</script>`
-        } 
-      })
+      // Object.keys(customComponents).forEach(item => {
+      //   const scriptContent = compilation.assets[`quickapp${item}${this.options.fileType.script}`].source()
+      //   baseCustomInfoObj[item] = {
+      //     fileTemplName: path.join(componentName, '..', `${item}${this.options.fileType.templ}`),
+      //     templStr: customComponents[item] + `\n<script>module.exports=${scriptContent}</script>`
+      //   } 
+      // })
     }
 
     if (baseTemplInfo) {
@@ -1193,24 +1193,24 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
 ` + baseTemplInfo.templStr
       }
 
-      Object.keys(baseCustomInfoObj).forEach(innerItem => {
-        if(baseCustomInfoObj[innerItem] && fileStyleName.indexOf(item) >= 0) {
-          const appFileStyleName = this.getStylePath('app')
-          const appRelativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, appFileStyleName))
-          const relativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, fileStyleName))
-          baseCustomInfoObj[innerItem].templStr = `<style>
-@import '${appRelativeStylePath}';
-${this.getCommonStyleAssets(compilation).map(assetName => {
-    const relativeStylePath = promoteRelativePath(path.relative(fileTemplName, assetName))
-    return `@import '${relativeStylePath}';`
-  }).join('\n')
-}
-@import '${relativeStylePath}';
-</style>
-` + baseCustomInfoObj[innerItem].templStr
+      //       Object.keys(baseCustomInfoObj).forEach(innerItem => {
+      //         if(baseCustomInfoObj[innerItem] && fileStyleName.indexOf(item) >= 0) {
+      //           const appFileStyleName = this.getStylePath('app')
+      //           const appRelativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, appFileStyleName))
+      //           const relativeStylePath = promoteRelativePath(path.relative(baseCustomInfoObj[innerItem].fileTemplName, fileStyleName))
+      //           baseCustomInfoObj[innerItem].templStr = `<style>
+      // @import '${appRelativeStylePath}';
+      // ${this.getCommonStyleAssets(compilation).map(assetName => {
+      //     const relativeStylePath = promoteRelativePath(path.relative(fileTemplName, assetName))
+      //     return `@import '${relativeStylePath}';`
+      //   }).join('\n')
+      // }
+      // @import '${relativeStylePath}';
+      // </style>
+      // ` + baseCustomInfoObj[innerItem].templStr
 
-        }
-      })
+      //         }
+      //       })
 
       if (fileScriptName.indexOf(item) >= 0) {
         const assetItem = compilation.assets[item]
@@ -1230,14 +1230,14 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
       source: () => templStr
     }
 
-    Object.keys(baseCustomInfoObj).forEach(innerItem => {
-      if(baseCustomInfoObj[innerItem]) {
-        compilation.assets[baseCustomInfoObj[innerItem].fileTemplName] = {
-          size: () => baseCustomInfoObj[innerItem]!.templStr.length,
-          source: () => baseCustomInfoObj[innerItem]!.templStr
-        }
-      }
-    })
+    // Object.keys(baseCustomInfoObj).forEach(innerItem => {
+    //   if(baseCustomInfoObj[innerItem]) {
+    //     compilation.assets[baseCustomInfoObj[innerItem].fileTemplName] = {
+    //       size: () => baseCustomInfoObj[innerItem]!.templStr.length,
+    //       source: () => baseCustomInfoObj[innerItem]!.templStr
+    //     }
+    //   }
+    // })
     if (baseTemplInfo) {
       compilation.assets[baseTemplInfo.fileTemplName] = {
         size: () => baseTemplInfo!.templStr.length,

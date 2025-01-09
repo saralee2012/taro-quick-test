@@ -388,7 +388,7 @@ export function createQuickAppConfig () {
 
   function nodeName ([nn, nnParent]: string[]) {
     if (isTextNode(nn) || isTextElement(nn)) {
-      return isTextElement(nnParent) ? 'qkspan' : 'qktext'
+      return isTextElement(nnParent) ? 'span' : 'text'
     }
 
     switch (nn) {
@@ -396,11 +396,11 @@ export function createQuickAppConfig () {
       case 'catch-view':
       case 'static-view':
       case 'pure-view':
-        return 'qkdiv'
+        return 'div'
       case 'static-image':
-        return 'qkimage'
+        return 'image'
       default:
-        return `qk${nn}`
+        return `${nn}`
     }
   }
 
@@ -409,7 +409,7 @@ export function createQuickAppConfig () {
       i: Object,
       nn: {
         type: String,
-        default: 'view'
+        default: 'div'
       }
     },
     eh (event) {
@@ -552,9 +552,10 @@ export function createQkvideoCompConfig () {
     },
     onInit () {
       this.$on('getHeight', this.getHeight)
+      this.$on('pause', this.handlePause)
     },
     getHeight () {
-      const id = this.props.sid
+      const id = this.props.uid || this.props.sid
       if(this.height > 0) {
         this.$dispatch('setHeight', {
           height: this.height,
@@ -577,6 +578,15 @@ export function createQkvideoCompConfig () {
           }
         })
       }
+    },
+    handlePause () {
+      const id = this.props.uid || this.props.sid
+      if (id) {
+        const nodeEle = this.$element(id)
+        if (nodeEle) {
+          nodeEle.pause()
+        }
+      }
     }
     
   }
@@ -584,6 +594,31 @@ export function createQkvideoCompConfig () {
 
 
 export function createQktextareaCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+export function createQktabsCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+
+export function createQktabbarCompConfig () {
+  const commonModule = quickCustomModule()
+  return {
+    ...commonModule,
+    onInit () {
+    }
+  }
+}
+export function createQktabcontentCompConfig () {
   const commonModule = quickCustomModule()
   return {
     ...commonModule,
