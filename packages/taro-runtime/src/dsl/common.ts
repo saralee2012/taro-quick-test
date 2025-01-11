@@ -453,6 +453,11 @@ export function createQuickAppConfig () {
 
       return eventHandler.call(this, mpEvent)
     },
+    getId (id) {
+      if(id) {
+        return this.$element(id)
+      }
+    },
     getHeight (e) {
       const id = e?.detail?.id
       if(id) {

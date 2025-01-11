@@ -37,7 +37,7 @@ export class Template extends UnRecursiveTemplate {
 
   private buildCompTempl (mergedAttributes: Attributes, componentConfig: any) {
     const Adapter = this.Adapter
-
+  
     // 给文本标签用
     if (!mergedAttributes.value) {
       mergedAttributes.value = 'i.v'
@@ -130,7 +130,7 @@ ${this.buildCompTempl(mergedAttributes, componentConfig)}
 <template>
   <div id="taro-page">
     <block ${Adapter.for}="{{root.cn}}" ${Adapter.key}="uid">
-      <base i="{{$item}}"></base>
+      <base i="{{$item}}" id="taro-base"></base>
     </block>
   </div>
 </template>
