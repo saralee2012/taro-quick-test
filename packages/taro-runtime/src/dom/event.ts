@@ -68,7 +68,12 @@ export class TaroEvent {
       const target = Object.create(this.mpEvent?.target || null)
 
       const element = env.document.getElementById(target.id)
-      target.dataset = element !== null ? element.dataset : EMPTY_OBJ
+      Object.defineProperty(target, 'dataset', {
+        value: element !== null ? element.dataset : EMPTY_OBJ,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
 
       for (const key in this.mpEvent?.detail) {
         target[key] = this.mpEvent!.detail[key]
@@ -96,9 +101,13 @@ export class TaroEvent {
         this.cacheCurrentTarget = this.target
         return this.target
       }
-      for(const key in element.dataset) {
-        currentTarget.dataset[key] = element.dataset[key]
-      }
+      
+      Object.defineProperty(currentTarget, 'dataset', {
+        value: element.dataset,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
 
       // currentTarget.dataset = element.dataset
 
