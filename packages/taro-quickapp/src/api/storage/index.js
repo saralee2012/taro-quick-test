@@ -1,6 +1,9 @@
 import storage from '@system.storage'
 import { generateUnSupportApi } from '../utils'
 
+const storageMap = new Map()
+
+
 export function setStorage (opts = {}) {
   const { key, data, success, fail, complete } = opts
   const res = { errMsg: 'setStorage:ok' }
@@ -10,6 +13,7 @@ export function setStorage (opts = {}) {
       key,
       value: JSON.stringify(data),
       success: () => {
+        storageMap.set(key, data)
         success && success(res)
         complete && complete(res)
         resolve(res)
@@ -22,6 +26,14 @@ export function setStorage (opts = {}) {
         reject(res)
       }
     })
+  })
+}
+
+export function setStorageSync (key, data) {
+  storageMap.set(key, data)
+  storage.set({
+    key,
+    value: JSON.stringify(data),
   })
 }
 
@@ -47,6 +59,24 @@ export function getStorage (opts = {}) {
       }
     })
   })
+}
+
+export function getStorageSync (key) {
+  const data = storageMap.get(key)
+  if (data) {
+    return storageMap.get(key)
+  }
+  storage.get({
+    key,
+    success: (data) => {
+      try {
+        const parseData = data ? JSON.parse(data) : data
+        storageMap.set(key, parseData)
+      } catch(e) { /* empty */ }
+      
+    },
+  })
+
 }
 
 export function getStorageInfo () {
@@ -85,7 +115,7 @@ export function getStorageModule () {
   return storage
 }
 
-let unSupportApis = ['setStorageSync', 'getStorageSync', 'getStorageInfoSync', 'removeStorageSync', 'clearStorageSync']
+let unSupportApis = ['getStorageInfoSync', 'removeStorageSync', 'clearStorageSync']
 unSupportApis = generateUnSupportApi(
   '快应用暂不支持storage的同步存取',
   unSupportApis
@@ -93,13 +123,15 @@ unSupportApis = generateUnSupportApi(
 
 const qStorage = {
   setStorage,
+  setStorageSync,
   getStorage,
+  getStorageSync,
   getStorageInfo,
   removeStorage,
   clearStorage,
   getStorageModule
 }
 
-Object.assign(qStorage, unSupportApis)
+// Object.assign(qStorage, unSupportApis)
 
 export default qStorage

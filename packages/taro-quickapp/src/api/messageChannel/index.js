@@ -6,3 +6,7 @@ export function createMessageChannel (options = {}) {
     sign: options.sign,
   })
 }
+
+export default {
+  createMessageChannel
+}

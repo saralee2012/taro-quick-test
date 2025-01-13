@@ -31,7 +31,7 @@ export function reLaunch (options = {}) {
 }
 
 function qappNavigate (options = {}, method = 'push') {
-  const { url = '', success, fail, complete } = options
+  const { url = '', success, fail, complete, parse = true } = options
   const res = { errMsg: 'ok' }
 
   return new Promise((resolve, reject) => {
@@ -42,9 +42,12 @@ function qappNavigate (options = {}, method = 'push') {
       reject(res)
       return
     }
-    const [pathname, querystring] = url.split('?')
-    params = getUrlParams(querystring)
-    const parseUrl = getUrlPath(pathname)
+    let parseUrl = url
+    if(parse) {
+      const [pathname, querystring] = url.split('?')
+      params = getUrlParams(querystring)
+      parseUrl = getUrlPath(pathname)
+    }
 
     try {
       router[method]({

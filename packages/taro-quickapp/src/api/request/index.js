@@ -39,7 +39,6 @@ export function request (options = {}) {
         data = JSON.stringify(data)
       }
     }
-
     // params
     const obj = {
       url,
@@ -48,8 +47,11 @@ export function request (options = {}) {
       method: methodUpper,
       success (res) {
         let data = res.data
-
-        if (dataType === 'json') data = JSON.parse(res.data)
+        if (dataType === 'json') {
+          try {
+            data = JSON.parse(res.data)
+          } catch(e) { /* empty */ }
+        }
 
         const reponse = {
           data,
@@ -108,7 +110,11 @@ export function uploadFile (options = {}) {
       success (res) {
         let data = res.data
 
-        if (dataType === 'json') data = JSON.parse(res.data)
+        if (dataType === 'json') {
+          try {
+            data = JSON.parse(res.data)
+          } catch(e) { /* empty */ }
+        }
 
         const reponse = {
           data,
@@ -155,7 +161,11 @@ export function downloadFile (options = {}) {
       success (res) {
         let data = res.data
 
-        if (dataType === 'json') data = JSON.parse(res.data)
+        if (dataType === 'json') {
+          try {
+            data = JSON.parse(res.data)
+          } catch(e) { /* empty */ }
+        }
 
         const reponse = {
           data,
