@@ -2,7 +2,8 @@ import { singleQuote } from '@tarojs/shared'
 
 export const components = {
   View: {
-    enablevideofullscreencontainer: 'false'
+    enablevideofullscreencontainer: 'false',
+    show: 'true'
   },
   List: {
     scrollpage: 'false',

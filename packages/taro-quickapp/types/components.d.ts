@@ -1,6 +1,7 @@
 export declare const components: {
     View: {
         enablevideofullscreencontainer: string;
+        show: string;
     };
     List: {
         scrollpage: string;

@@ -3,8 +3,8 @@ import type { AppInstance } from '@tarojs/runtime'
 export function App (config: AppInstance) {
   const {
     onLaunch,
-    mount,
-    unmount,
+    // mount,
+    // unmount,
     onPageNotFound,
     taroGlobalData,
 
@@ -22,8 +22,8 @@ export function App (config: AppInstance) {
     onRequest: null,
     onHide,
     onShow,
-    mount,
-    unmount,
+    // mount,
+    // unmount,
     taroGlobalData,
     componentDidShow,
     componentDidHide
