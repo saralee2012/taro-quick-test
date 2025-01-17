@@ -1,6 +1,6 @@
 {
-  "name": "@iqiyi/wukong-taro-cli",
-  "version": "3.6.7-alpha.1",
+  "name": "@tarojs/cli",
+  "version": "3.6.7",
   "description": "cli tool for taro",
   "main": "index.js",
   "scripts": {
