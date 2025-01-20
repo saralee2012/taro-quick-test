@@ -1,5 +1,6 @@
 import { initNativeApi } from './apis';
-export { initNativeApi };
+import appGlobal from './globalQuick';
+export { appGlobal, initNativeApi };
 export * from './components';
 export declare const hostConfig: {
     initNativeApi: typeof initNativeApi;

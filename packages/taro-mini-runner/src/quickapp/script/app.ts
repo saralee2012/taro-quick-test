@@ -1,4 +1,5 @@
 import type { AppInstance } from '@tarojs/runtime'
+import { appGlobal } from '@tarojs/plugin-platform-quickapp/dist/runtime-utils'
 
 export function App (config: AppInstance) {
   const {
@@ -15,7 +16,10 @@ export function App (config: AppInstance) {
   } = config
 
   return {
-    onCreate: onLaunch,
+    onCreate: function() {
+      appGlobal.$app = this;
+      onLaunch && onLaunch()
+    },
     onPageNotFound,
     onError: null,
     onDestroy: null,

@@ -1,6 +1,7 @@
 import { initNativeApi } from './apis'
+import appGlobal from './globalQuick'
 
-export { initNativeApi }
+export { appGlobal,initNativeApi }
 export * from './components'
 
 // 见 https://doc.quickapp.cn/widgets/common-events.html
