@@ -25,26 +25,6 @@ export declare const components: {
         bindScrollEnd: string;
         bindScrollTouchUp: string;
     };
-    QkPopup: {
-        target: string;
-        placement: string;
-        bindVisibilityChange: string;
-    };
-    QkRefresh: {
-        offset: string;
-        refreshing: string;
-        type: string;
-        enableRefresh: string;
-        bindRefresh: string;
-    };
-    QkRichText: {
-        type: string;
-        bindStart: string;
-        bindComplete: string;
-    };
-    QkStack: {
-        bindFullScreenChange: string;
-    };
     Swiper: {
         index: string;
         autoplay: string;
@@ -68,9 +48,6 @@ export declare const components: {
     QkTabContent: {
         scrollable: string;
     };
-    QkA: {
-        href: string;
-    };
     Image: {
         src: string;
         alt: string;
@@ -78,27 +55,8 @@ export declare const components: {
         bindComplete: string;
         bindError: string;
     };
-    QkProgress: {
-        percent: string;
-        type: string;
-    };
-    QkRating: {
-        numstars: string;
-        rating: string;
-        stepsize: string;
-        indicator: string;
-        bindChange: string;
-    };
     QkSpan: {};
     QkText: {};
-    QkMarquee: {
-        scrollamount: string;
-        loop: string;
-        direction: string;
-        bindBounce: string;
-        bindFinish: string;
-        bindStart: string;
-    };
     Input: {
         type: string;
         checked: string;
@@ -112,29 +70,7 @@ export declare const components: {
         bindEnterkeyClick: string;
         bindSelectionChange: string;
     };
-    QkLabel: {
-        target: string;
-    };
-    QkOption: {
-        selected: string;
-        value: string;
-    };
-    QkPicker: {
-        type: string;
-        range: string;
-        selected: string;
-        value: string;
-        start: string;
-        end: string;
-    };
-    QkSelect: {
-        bindChange: string;
-    };
-    QkSwitch: {
-        checked: string;
-        bindChange: string;
-    };
-    TextArea: {
+    Textarea: {
         placeholder: string;
         maxlength: string;
         bindChange: string;
@@ -161,16 +97,6 @@ export declare const components: {
         bindSeeked: string;
         bindTimeUpdate: string;
         bindFullScreenChange: string;
-    };
-    QkCamera: {
-        deviceposition: string;
-        flash: string;
-        framesize: string;
-        autoexposurelock: string;
-        autowhitebalancelock: string;
-        bindError: string;
-        bindCameraFrame: string;
-        bindCameraInitDone: string;
     };
     QkCanvas: {};
     QkWeb: {

@@ -568,7 +568,7 @@ interface SwitchProps extends StandardProps {
   onChange?: BaseEventOrigFunction<{ checked: boolean }>
 }
 
-interface TextAreaProps extends StandardProps {
+interface TextareaProps extends StandardProps {
   /**
    * 提示文本的内容
    */
@@ -888,29 +888,29 @@ declare module '@tarojs/components' {
    */
   export const QkListItem: ComponentType<ListItemProps>
 
-  /**
-   * 在点击控件或者某个区域后，浮出一个气泡来引导用户，气泡内容通过子组件来定义。如果设置了遮罩层，可通过点击遮罩层的任意位置退出，否则点击气泡外的任意区域退出
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/popup.html
-   */
-  export const QkPopup: ComponentType<PopupProps & { children?: (typeof Text)[] }>
+  // /**
+  //  * 在点击控件或者某个区域后，浮出一个气泡来引导用户，气泡内容通过子组件来定义。如果设置了遮罩层，可通过点击遮罩层的任意位置退出，否则点击气泡外的任意区域退出
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/popup.html
+  //  */
+  // export const QkPopup: ComponentType<PopupProps & { children?: (typeof Text)[] }>
 
-  /**
-   * 下拉刷新容器
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/refresh.html
-   */
-  export const QkRefresh: ComponentType<RefreshProps>
+  // /**
+  //  * 下拉刷新容器
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/refresh.html
+  //  */
+  // export const QkRefresh: ComponentType<RefreshProps>
 
-  /**
-   * 富文本容器
-   *
-   * 文本内容直接写在标签内容区，内容格式需与 type 相匹配，只支持静态内容，由于需要实时编译，文本内容尽量不要频繁改变，否则可能导致性能问题
-   *
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/richtext.html
-   */
-  export const QkRichText: ComponentType<RichTextProps>
+  // /**
+  //  * 富文本容器
+  //  *
+  //  * 文本内容直接写在标签内容区，内容格式需与 type 相匹配，只支持静态内容，由于需要实时编译，文本内容尽量不要频繁改变，否则可能导致性能问题
+  //  *
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/richtext.html
+  //  */
+  // export const QkRichText: ComponentType<RichTextProps>
 
   /**
    * 基本容器，子组件排列方式为层叠排列，每个直接子组件按照先后顺序依次堆叠，覆盖前一个子组件
@@ -950,17 +950,17 @@ declare module '@tarojs/components' {
    */
   export const QkTabContent: ComponentType<TabContentProps>
 
-  /**
-   * 超链接（默认不带下划线）
-   *
-   * 文本内容写在标签内容区，支持转义字符"\"
-   *
-   * 子组件：仅支持\<span>
-   *
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/tab-content.html
-   */
-  export const QkA: ComponentType<AProps>
+  // /**
+  //  * 超链接（默认不带下划线）
+  //  *
+  //  * 文本内容写在标签内容区，支持转义字符"\"
+  //  *
+  //  * 子组件：仅支持\<span>
+  //  *
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/tab-content.html
+  //  */
+  // export const QkA: ComponentType<AProps>
 
   /**
    * 渲染图片
@@ -969,19 +969,19 @@ declare module '@tarojs/components' {
    */
   export const QkImage: ComponentType<ImageProps>
 
-  /**
-   * 进度条
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/progress.html
-   */
-  export const QkProgress: ComponentType<ProgressProps>
+  // /**
+  //  * 进度条
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/progress.html
+  //  */
+  // export const QkProgress: ComponentType<ProgressProps>
 
-  /**
-   * 星级评分
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/rating.html
-   */
-  export const QkRating: ComponentType<RatingProps>
+  // /**
+  //  * 星级评分
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/rating.html
+  //  */
+  // export const QkRating: ComponentType<RatingProps>
 
   /**
    * 格式化的文本，只能作为\<text>、\<a>和\<span>的子组件
@@ -1004,15 +1004,15 @@ declare module '@tarojs/components' {
    */
   export const QkText: ComponentType<StandardProps>
 
-  /**
-   * 跑马灯
-   *
-   * 跑马灯用来插入一段滚动的文字，默认为单行。
-   *
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/marquee.html
-   */
-  export const QkMarquee: ComponentType<MarqueeProps>
+  // /**
+  //  * 跑马灯
+  //  *
+  //  * 跑马灯用来插入一段滚动的文字，默认为单行。
+  //  *
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/marquee.html
+  //  */
+  // export const QkMarquee: ComponentType<MarqueeProps>
 
   /**
    * 提供可交互的界面，接收用户的输入，默认为单行
@@ -1021,36 +1021,36 @@ declare module '@tarojs/components' {
    */
   export const QkInput: ComponentType<InputProps>
 
-  /**
-   * 为 input、textarea 组件定义标注
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/label.html
-   */
-  export const QkLabel: ComponentType<LabelProps>
+  // /**
+  //  * 为 input、textarea 组件定义标注
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/label.html
+  //  */
+  // export const QkLabel: ComponentType<LabelProps>
 
-  /**
-   * \<select>的子组件，用来展示下拉选择具体项目
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/option.html
-   */
-  export const QkOption: ComponentType<OptionProps>
+  // /**
+  //  * \<select>的子组件，用来展示下拉选择具体项目
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/option.html
+  //  */
+  // export const QkOption: ComponentType<OptionProps>
 
-  /**
-   * 滚动选择器，目前支持四种选择器，普通选择器，日期选择器，时间选择器，多列文本选择器1010+。默认为普通选择器。
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/picker.html
-   */
-  export const QkPicker: ComponentType<PickerProps>
+  // /**
+  //  * 滚动选择器，目前支持四种选择器，普通选择器，日期选择器，时间选择器，多列文本选择器1010+。默认为普通选择器。
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/picker.html
+  //  */
+  // export const QkPicker: ComponentType<PickerProps>
 
-  /**
-   * 下拉选择按钮，点击会弹出一个包含所有可选值的下拉菜单，从该菜单中可以选择一个新值
-   *
-   * 子组件：仅支持<option>
-   *
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/select.html
-   */
-  export const QkSelect: ComponentType<SelectProps>
+  // /**
+  //  * 下拉选择按钮，点击会弹出一个包含所有可选值的下拉菜单，从该菜单中可以选择一个新值
+  //  *
+  //  * 子组件：仅支持<option>
+  //  *
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/select.html
+  //  */
+  // export const QkSelect: ComponentType<SelectProps>
 
   /**
    * 滑动选择器
@@ -1059,12 +1059,12 @@ declare module '@tarojs/components' {
    */
   //export const QkSlider: ComponentType<SliderProps>
 
-  /**
-   * 开关选择
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/switch.html
-   */
-  export const QkSwitch: ComponentType<SwitchProps>
+  // /**
+  //  * 开关选择
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/switch.html
+  //  */
+  // export const QkSwitch: ComponentType<SwitchProps>
 
   /**
    * 提供可交互的界面，接收用户的输入，默认为多行
@@ -1080,10 +1080,10 @@ declare module '@tarojs/components' {
    */
   //export const Video: ComponentType<VideoProps>
 
-  /**
-   * 相机组件
-   */
-  export const QkCamera: ComponentType<CameraProps>
+  // /**
+  //  * 相机组件
+  //  */
+  // export const QkCamera: ComponentType<CameraProps>
 
   /**
    * 画布组件，通过使用 JavaScript 中的脚本，可以在 canvas 上绘制图形，制作照片，创建动画等。
