@@ -1092,23 +1092,23 @@ declare module '@tarojs/components' {
    */
   export const QkCanvas: ComponentType<StandardProps>
 
-  /**
-   * 用于显示在线的 html 页面，在 webview 的 useragent 后追加内容，格式是 hap/<平台版本号>/<厂商标识> <平台应用包名>/<平台应用版本号> <应用名>/<应用版本号> (<来源信息>)。“来源信息”与 app 接口的 getInfo 方法返回结果中的 source 字段相同。
-   *
-   * 使用 web 组件，必须声明"打开网页"接口，否则会提示缺乏权限。
-   *
-   * 11010+ 支持上传文件，不支持多选。 1020+ 支持下载文件。 1040+ 支持定位。
-   *
-   * 1由于各厂商系统 webview 已不再支持非安全域的 web 定位请求，为保证定位成功率和精度，请尽快升级您的站点到 HTTPS。
-   *
-   * 11040+ 支持 h5 页面中 input 标签的拍照、录视频、录音频以及音频、视频、图片文件选择。
-   *
-   * 1accept 字段内容（audio/ 表示音频 ， video/ 表示视频 ，image/* 表示图片 或者其他有效 MIME 类型）。
-   *
-   * 1090+ 支持 h5 页面中 input 标签的capture属性。
-   *
-   * @supported quickapp
-   * @see https://doc.quickapp.cn/widgets/web.html
-   */
-  export const QkWeb: ComponentType<WebProps>
+  // /**
+  //  * 用于显示在线的 html 页面，在 webview 的 useragent 后追加内容，格式是 hap/<平台版本号>/<厂商标识> <平台应用包名>/<平台应用版本号> <应用名>/<应用版本号> (<来源信息>)。“来源信息”与 app 接口的 getInfo 方法返回结果中的 source 字段相同。
+  //  *
+  //  * 使用 web 组件，必须声明"打开网页"接口，否则会提示缺乏权限。
+  //  *
+  //  * 11010+ 支持上传文件，不支持多选。 1020+ 支持下载文件。 1040+ 支持定位。
+  //  *
+  //  * 1由于各厂商系统 webview 已不再支持非安全域的 web 定位请求，为保证定位成功率和精度，请尽快升级您的站点到 HTTPS。
+  //  *
+  //  * 11040+ 支持 h5 页面中 input 标签的拍照、录视频、录音频以及音频、视频、图片文件选择。
+  //  *
+  //  * 1accept 字段内容（audio/ 表示音频 ， video/ 表示视频 ，image/* 表示图片 或者其他有效 MIME 类型）。
+  //  *
+  //  * 1090+ 支持 h5 页面中 input 标签的capture属性。
+  //  *
+  //  * @supported quickapp
+  //  * @see https://doc.quickapp.cn/widgets/web.html
+  //  */
+  // export const QkWeb: ComponentType<WebProps>
 }

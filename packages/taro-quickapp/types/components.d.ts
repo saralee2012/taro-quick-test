@@ -99,18 +99,4 @@ export declare const components: {
         bindFullScreenChange: string;
     };
     QkCanvas: {};
-    QkWeb: {
-        src: string;
-        trustedurl: string;
-        allowthirdpartycookies: string;
-        showloadingdialog: string;
-        supportzoom: string;
-        useragent: string;
-        bindPageStart: string;
-        bindPageFinish: string;
-        bindTitleReceive: string;
-        bindError: string;
-        bindMessage: string;
-        bindProgress: string;
-    };
 };

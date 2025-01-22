@@ -176,18 +176,18 @@ export const components = {
   //   bindCameraInitDone: ''
   // },
   QkCanvas: {},
-  QkWeb: {
-    src: singleQuote(''),
-    trustedurl: '[]',
-    allowthirdpartycookies: 'false',
-    showloadingdialog: 'false',
-    supportzoom: 'true',
-    useragent: singleQuote(''),
-    bindPageStart: '',
-    bindPageFinish: '',
-    bindTitleReceive: '',
-    bindError: '',
-    bindMessage: '',
-    bindProgress: ''
-  }
+  // QkWeb: {
+  //   src: singleQuote(''),
+  //   trustedurl: '[]',
+  //   allowthirdpartycookies: 'false',
+  //   showloadingdialog: 'false',
+  //   supportzoom: 'true',
+  //   useragent: singleQuote(''),
+  //   bindPageStart: '',
+  //   bindPageFinish: '',
+  //   bindTitleReceive: '',
+  //   bindError: '',
+  //   bindMessage: '',
+  //   bindProgress: ''
+  // }
 }

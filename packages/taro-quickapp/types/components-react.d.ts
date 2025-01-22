@@ -17,7 +17,6 @@ export declare const Input = "input";
 export declare const Textarea = "textarea";
 export declare const Video = "video";
 export declare const QkCanvas = "canvas";
-export declare const QkWeb = "web";
 export declare const Button = "view";
 export declare const CoverView = "div";
 export declare const CoverImage = "image";
