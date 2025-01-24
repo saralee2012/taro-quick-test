@@ -142,7 +142,9 @@ export const components = {
     maxlength: '100',
     bindChange: '',
     bindSelectionChange: '',
-    bindLineChange: ''
+    bindLineChange: '',
+    bindFocus: '',
+    bindBlur: '',
   },
   Video: {
     src: singleQuote(''),
@@ -191,3 +193,5 @@ export const components = {
   //   bindProgress: ''
   // }
 }
+
+

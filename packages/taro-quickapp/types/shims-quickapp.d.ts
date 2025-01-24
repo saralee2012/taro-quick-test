@@ -592,6 +592,14 @@ interface TextareaProps extends StandardProps {
    * @supported quickapp(1060+)
    */
   onLineChange?: BaseEventOrigFunction<{ height: number, lineCount: number }>
+  /**
+   * 组件获得焦点时触发
+   */
+  onFocus?: CommonEventFunction
+  /**
+   * 组件失去焦点时触发
+   */
+  onBlur?: CommonEventFunction
 }
 
 interface VideoProps extends StandardProps {

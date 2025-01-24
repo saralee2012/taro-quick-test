@@ -76,6 +76,8 @@ export declare const components: {
         bindChange: string;
         bindSelectionChange: string;
         bindLineChange: string;
+        bindFocus: string;
+        bindBlur: string;
     };
     Video: {
         src: string;
