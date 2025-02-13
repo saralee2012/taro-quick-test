@@ -136,7 +136,7 @@ export class BaseTemplate {
               const propAlias = componentAlias[propInCamelCase] || propInCamelCase
               propValue = this.supportXS
                 ? `xs.b(i.${propAlias},${propValue})`
-                : `i.${propAlias}===undefined?${propValue}:i.${propAlias}`
+                : `i.${propAlias}` // TODO: 是否只有快应用不需要判断属性是布尔值是否undefined
             } else {
               const propInCamelCase = toCamelCase(prop)
               const propAlias = componentAlias[propInCamelCase] || propInCamelCase
