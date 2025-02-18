@@ -15,6 +15,7 @@ export declare const components: {
     ListItem: {
         type: string;
         disallowintercept: string;
+        tid: string;
     };
     ScrollView: {
         scrollpage: string;

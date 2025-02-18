@@ -17,7 +17,8 @@ export const components = {
   },
   ListItem: {
     type: singleQuote(''),
-    disallowintercept: 'false'
+    disallowintercept: 'false',
+    tid: singleQuote('')
   },
   ScrollView: {
     scrollpage: 'false',
