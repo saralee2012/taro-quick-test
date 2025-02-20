@@ -81,7 +81,7 @@ export class Template extends UnRecursiveTemplate {
       buildAttributesStr(thisIName)
       templ += `
       <component is="{{${nodeNameStr}}}" id="{{${thisIName}.uid || ${thisIName}.sid}}" ${buildAttributesStr(thisIName)}>
-        <block ${Adapter.for}="{{${childIName} in ${thisIName}.cn}}" ${Adapter.key}="uid">`
+        <block ${Adapter.for}="{{${childIName} in ${thisIName}.cn}}" ${Adapter.key}="sid">`
 
       if (i === this.baseLevel - 1) {
         templ += `<base i="{{${childIName}}}" nn="{{${thisIName}.nn}}"></base>`

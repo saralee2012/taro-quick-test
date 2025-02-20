@@ -140,6 +140,7 @@ export const components = {
   // },
   Textarea: {
     placeholder: singleQuote(''),
+    autofocus: 'false',
     maxlength: '100',
     bindChange: '',
     bindSelectionChange: '',

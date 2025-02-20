@@ -73,6 +73,7 @@ export declare const components: {
     };
     Textarea: {
         placeholder: string;
+        autofocus: string;
         maxlength: string;
         bindChange: string;
         bindSelectionChange: string;
