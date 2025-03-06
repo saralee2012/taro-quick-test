@@ -27,7 +27,7 @@
     { "name": "service.account" },
     { "name": "hap.io.MessageChannel" }
   ],
-  "icon": "logo.png",
+  "icon": "/resource/images/logo.png",
   "permissions": [
     { "origin": "*" }
   ],

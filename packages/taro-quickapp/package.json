@@ -1,6 +1,6 @@
 {
   "name": "@iqiyi/wukong-plugin-platform-quickapp",
-  "version": "3.6.7-alpha.3",
+  "version": "3.6.7-alpha.5",
   "description": "快应用平台插件",
   "author": "drchan",
   "homepage": "https://github.com/nervjs/taro/tree/master/packages/taro-quickapp#readme",
