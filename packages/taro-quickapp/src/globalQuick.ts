@@ -1,4 +1,3 @@
-const appGlobal = global || {}
-const globalRef = Object.getPrototypeOf(appGlobal) || appGlobal
+const appGlobal = global || Object.create(null)
 
-export default globalRef
+export default appGlobal

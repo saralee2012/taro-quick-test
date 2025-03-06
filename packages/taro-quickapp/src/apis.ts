@@ -2,7 +2,8 @@ import * as supportApi from './api/index'
 import appGlobal from './globalQuick'
 
 function getApp () {
-  return appGlobal.$app || {}
+  // 返回的是global
+  return appGlobal
 }
 
 export function initNativeApi (taro) {
