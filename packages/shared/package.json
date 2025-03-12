@@ -1,6 +1,7 @@
 {
-  "name": "@iqiyi/wukong-miniapp-shared",
-  "version": "3.6.7-alpha.1",
+  "name": "@tarojs/shared",
+  "version": "3.6.7",
+
   "description": "Taro utils internal use.",
   "author": "yuche <i@yuche.me>",
   "homepage": "https://github.com/nervjs/taro/tree/master/packages/shared#readme",
