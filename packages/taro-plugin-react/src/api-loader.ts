@@ -13,6 +13,7 @@ export default function (str: string) {
   usePullIntercept,
   useReachBottom,
   useReady,
+  useRefresh,
   useResize,
   useRouter,
   useSaveExitState,
@@ -41,6 +42,7 @@ taro.useReachBottom = useReachBottom
 taro.useReady = useReady
 taro.useResize = useResize
 taro.useRouter = useRouter
+taro.useRefresh = useRefresh
 taro.useSaveExitState = useSaveExitState
 taro.useShareAppMessage = useShareAppMessage
 taro.useShareTimeline = useShareTimeline
@@ -64,6 +66,7 @@ export {
   usePullIntercept,
   useReachBottom,
   useReady,
+  useRefresh,
   useResize,
   useRouter,
   useSaveExitState,

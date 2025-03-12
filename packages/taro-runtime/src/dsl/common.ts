@@ -6,7 +6,7 @@ import {
 
 import { raf } from '../bom/raf'
 import { window } from '../bom/window'
-import { BEHAVIORS, CONTEXT_ACTIONS, CUSTOM_WRAPPER, EXTERNAL_CLASSES, ON_HIDE, ON_LOAD, ON_READY, ON_SHOW, OPTIONS, PAGE_INIT, VIEW } from '../constants'
+import { BEHAVIORS, CONTEXT_ACTIONS, CUSTOM_WRAPPER, EXTERNAL_CLASSES, ON_HIDE, ON_LOAD, ON_READY, ON_SHOW, ON_REFRESH, OPTIONS, PAGE_INIT, VIEW } from '../constants'
 import { Current } from '../current'
 import { eventHandler } from '../dom/event'
 import { eventCenter } from '../emitter/emitter'
@@ -105,6 +105,7 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
     ONREADY,
     ONSHOW,
     ONHIDE,
+    ONREFRESH,
     LIFECYCLES,
     SIDE_EFFECT_LIFECYCLES
   ] = hooks.call('getMiniLifecycleImpl')!.page
@@ -239,7 +240,14 @@ export function createPageConfig (component: any, pageName?: string, data?: Reco
       safeExecute(this.$taroPath, ON_HIDE)
       // 通过事件触发子组件的生命周期
       eventCenter.trigger(getOnHideEventKey(id))
-    }
+    },
+    [ONREFRESH] (options = {}) {
+      hasLoaded.then(() => {
+        // 触发生命周期
+        safeExecute(this.$taroPath, ON_REFRESH, options)
+        // TODO: 通过事件触发子组件的生命周期
+      })
+    },
   }
 
   LIFECYCLES.forEach((lifecycle) => {

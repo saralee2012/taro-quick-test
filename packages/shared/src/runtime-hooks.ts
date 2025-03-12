@@ -34,6 +34,7 @@ interface MiniLifecycle {
     string, /** onReady */
     string, /** onShow */
     string, /** onHide */
+    string, /** onRfresh */
     string[], /** others */
     string[] /** side-effects */
   ]
@@ -86,6 +87,7 @@ const defaultMiniLifecycle: MiniLifecycle = {
     'onReady',
     'onShow',
     'onHide',
+    'onRefresh',
     [
       'onPullDownRefresh',
       'onReachBottom',

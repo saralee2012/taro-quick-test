@@ -22,7 +22,7 @@ export function Page (config: PageInstance) {
     // eh,
     onLoad,
     onUnload,
-
+    onRefresh,
     // componentDidShow,
     // componentDidHide,
     onShow,
@@ -39,7 +39,7 @@ export function Page (config: PageInstance) {
     onDestroy: onUnload,
     onBackPress: null,
     onMenuPress: null,
-    onRefresh: null,
+    onRefresh: onRefresh,
     onConfigurationChanged: null,
     onReachTop: onPullDownRefresh,
     onReachBottom: onReachBottom,

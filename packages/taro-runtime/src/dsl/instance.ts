@@ -49,6 +49,7 @@ export interface PageLifeCycle extends Show {
   onPageScroll?(obj: { scrollTop: number }): void
   onPullDownRefresh?(): void
   onPullIntercept?(): void
+  onRefresh?(): void
   onPopMenuClick?(): void
   onReachBottom?(): void
   onReady?(): void

@@ -48,6 +48,7 @@ declare module './index' {
     onPopMenuClick?(): void
     onPullDownRefresh?(): void
     onPullIntercept?(): void
+    onRefresh?(): void
     onReachBottom?(): void
     onResize?(opt: PageResizeObject): void
     onShareAppMessage?(opt: ShareAppMessageObject): ShareAppMessageReturn

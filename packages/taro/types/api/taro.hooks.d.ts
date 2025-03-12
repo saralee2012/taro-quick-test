@@ -138,5 +138,12 @@ declare module '../index' {
      * @supported alipay, h5
      */
     usePullIntercept(callback: () => void): void
+
+    /**
+     * 快应用页面重新打开的回调。
+     * @supported global
+     */
+    useRefresh(callback: (options?: getLaunchOptionsSync.LaunchOptions) => void): void
+
   }
 }
