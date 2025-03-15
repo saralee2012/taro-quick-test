@@ -2,7 +2,7 @@ import account from '@service.account'
 
 export function authorize (opts = {}) {
   const { success, fail, complete } = opts
-  const res = { errMsg: 'getContactPick:ok' }
+  const res = { errMsg: 'authorize:ok' }
   return new Promise((resolve, reject) => {
     account.authorize({
       success (data) {
@@ -21,11 +21,60 @@ export function authorize (opts = {}) {
   })
 }
 
+export function getProvider () {
+  return account.getProvider()
+}
+
+export function isLogin (opts = {}) {
+  const { success, fail } = opts
+  const res = { errMsg: 'isLogin:ok' }
+  return new Promise((resolve, reject) => {
+    account.isLogin({
+      success (data) {
+        res.result = data
+        success && success(data)
+        resolve(data)
+      },
+      fail (data, code) {
+        res.errMsg = data
+        res.code = code
+        fail && fail(res)
+        reject(res)
+      }
+    })
+  })
+
+}
+
+export function checkUserSession (opts = {}) {
+  const { success, fail } = opts
+  const res = { errMsg: 'checkUserSession:ok' }
+  return new Promise((resolve, reject) => {
+    account.checkUserSession({
+      success (data) {
+        res.result = data
+        success && success(data)
+        resolve(data)
+      },
+      fail (data, code) {
+        res.errMsg = data
+        res.code = code
+        fail && fail(res)
+        reject(res)
+      }
+    })
+  })
+
+}
+
 export function getAccountModule () {
   return account
 }
 
 export default {
   authorize,
-  getAccountModule
+  getAccountModule,
+  isLogin,
+  checkUserSession,
+  getProvider
 }
