@@ -1,10 +1,15 @@
 import account from '@service.account'
 
 export function authorize (opts = {}) {
-  const { success, fail, complete } = opts
+  const { success, fail, complete, appid, type, scope,  forceLogin = '1', state = '' } = opts
   const res = { errMsg: 'authorize:ok' }
   return new Promise((resolve, reject) => {
     account.authorize({
+      appid,
+      type,
+      scope,
+      forceLogin,
+      state,
       success (data) {
         res.result = data
         success && success(data)
