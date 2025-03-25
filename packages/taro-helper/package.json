@@ -1,9 +1,10 @@
 {
-  "name": "@iqiyi/wukong-miniapp-helper",
-  "version": "3.6.7-alpha.1",
+  "name": "@tarojs/helper",
+  "version": "3.6.7",
   "description": "Taro Helper",
   "main": "index.js",
   "types": "dist/index.d.ts",
+
   "scripts": {
     "build": "run-s clean prod",
     "clean": "rimraf dist",
