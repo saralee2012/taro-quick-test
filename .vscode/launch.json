@@ -11,14 +11,18 @@
     "program": "${workspaceFolder}/packages/taro-cli/bin/taro",
     //"cwd": "/Users/yetherine/2018/code/小程序/frontsh/taro3/test/quickDemo",
     //"cwd": "/Users/yetherine/2018/code/小程序/frontsh/iqiyi-video-program-quickapp",
-    "cwd": "/Users/yetherine/2018/code/小程序/frontsh/iqiyi-video-program",
-    //"cwd": "/Users/yetherine/2018/code/quickapp/frontsh/iqiyi-video-program",
+    //"cwd": "/Users/yetherine/2018/code/小程序/frontsh/iqiyi-video-program",
+    "cwd": "/Users/yetherine/2018/code/quickapp/frontsh/iqiyi-video-program",
     "console": "integratedTerminal",
     "runtimeExecutable": "/Users/yetherine/.nvm/versions/node/v16.20.0/bin/node",
+    "env": {
+      "TYPE": "huawei",
+    },
     "args": [
       "build",
       "--type",
-      "quickapp"
+      "quickapp",
+      "--watch",
     ],
     "skipFiles": [
       "<node_internals>/**"

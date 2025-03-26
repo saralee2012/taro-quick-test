@@ -3,17 +3,11 @@ import { singleQuote } from '@tarojs/shared'
 export const components = {
   View: {
     enablevideofullscreencontainer: 'false',
-    show: 'true'
   },
   List: {
     scrollpage: 'false',
     layoutType: 'grid',
-    bindScroll: '',
-    bindScrollBottom: '',
-    bindScrollTop: '',
-    bindScrollEnd: '',
-    bindScrollTouchUp: '',
-    
+    outclass: singleQuote(''),
   },
   ListItem: {
     type: singleQuote(''),
@@ -23,11 +17,6 @@ export const components = {
   ScrollView: {
     scrollpage: 'false',
     layoutType: singleQuote('grid'),
-    bindScroll: '',
-    bindScrollBottom: '',
-    bindScrollTop: '',
-    bindScrollEnd: '',
-    bindScrollTouchUp: '',
   },
   // QkPopup: {
   //   target: singleQuote(''),
@@ -60,11 +49,11 @@ export const components = {
     previousMargin: singleQuote(''),
     nextMargin: singleQuote(''),
     enableSwipe: 'true',
-    bindChange: ''
+    // bindChange: ''
   },
   QkTabs: {
     index: '0',
-    bindChange: ''
+    // bindChange: ''
   },
   QkTabBar: {
     mode: singleQuote('fixed')
@@ -79,8 +68,6 @@ export const components = {
     src: singleQuote(''),
     alt: singleQuote(''),
     autoplay: 'true',
-    bindComplete: '',
-    bindError: ''
   },
   // QkProgress: {
   //   percent: '0',
@@ -112,9 +99,7 @@ export const components = {
     maxlength: '100',
     enterkeytype: singleQuote('default'),
     autocomplete: singleQuote('on'),
-    bindChange: '',
-    bindEnterkeyClick: '',
-    bindSelectionChange: ''
+    // bindChange: '',
   },
   // QkLabel: {
   //   target: singleQuote('')
@@ -142,9 +127,9 @@ export const components = {
     placeholder: singleQuote(''),
     autofocus: 'false',
     maxlength: '100',
-    bindChange: '',
-    bindSelectionChange: '',
-    bindLineChange: '',
+    // bindChange: '',
+    // bindSelectionChange: '',
+    // bindLineChange: '',
     bindFocus: '',
     bindBlur: '',
   },
@@ -159,15 +144,14 @@ export const components = {
     title: singleQuote(''),
     playcount: '1',
     enablevideofullscreencontainer: 'false',
-    bindPrepared: '',
-    bindStart: '',
-    bindPause: '',
-    bindFinish: '',
-    bindError: '',
-    bindSeeking: '',
-    bindSeeked: '',
-    bindTimeUpdate: '',
-    bindFullScreenChange: ''
+    // bindPrepared: '',
+    // bindStart: '',
+    // bindPause: '',
+    // bindFinish: '',
+    // bindSeeking: '',
+    // bindSeeked: '',
+    // bindTimeUpdate: '',
+    // bindFullScreenChange: ''
   },
   // QkCamera: {
   //   deviceposition: singleQuote('front'),

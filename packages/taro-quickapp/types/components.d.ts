@@ -1,16 +1,11 @@
 export declare const components: {
     View: {
         enablevideofullscreencontainer: string;
-        show: string;
     };
     List: {
         scrollpage: string;
         layoutType: string;
-        bindScroll: string;
-        bindScrollBottom: string;
-        bindScrollTop: string;
-        bindScrollEnd: string;
-        bindScrollTouchUp: string;
+        outclass: string;
     };
     ListItem: {
         type: string;
@@ -20,11 +15,6 @@ export declare const components: {
     ScrollView: {
         scrollpage: string;
         layoutType: string;
-        bindScroll: string;
-        bindScrollBottom: string;
-        bindScrollTop: string;
-        bindScrollEnd: string;
-        bindScrollTouchUp: string;
     };
     Swiper: {
         index: string;
@@ -37,11 +27,9 @@ export declare const components: {
         previousMargin: string;
         nextMargin: string;
         enableSwipe: string;
-        bindChange: string;
     };
     QkTabs: {
         index: string;
-        bindChange: string;
     };
     QkTabBar: {
         mode: string;
@@ -53,8 +41,6 @@ export declare const components: {
         src: string;
         alt: string;
         autoplay: string;
-        bindComplete: string;
-        bindError: string;
     };
     QkSpan: {};
     QkText: {};
@@ -67,17 +53,11 @@ export declare const components: {
         maxlength: string;
         enterkeytype: string;
         autocomplete: string;
-        bindChange: string;
-        bindEnterkeyClick: string;
-        bindSelectionChange: string;
     };
     Textarea: {
         placeholder: string;
         autofocus: string;
         maxlength: string;
-        bindChange: string;
-        bindSelectionChange: string;
-        bindLineChange: string;
         bindFocus: string;
         bindBlur: string;
     };
@@ -92,15 +72,6 @@ export declare const components: {
         title: string;
         playcount: string;
         enablevideofullscreencontainer: string;
-        bindPrepared: string;
-        bindStart: string;
-        bindPause: string;
-        bindFinish: string;
-        bindError: string;
-        bindSeeking: string;
-        bindSeeked: string;
-        bindTimeUpdate: string;
-        bindFullScreenChange: string;
     };
     QkCanvas: {};
 };
