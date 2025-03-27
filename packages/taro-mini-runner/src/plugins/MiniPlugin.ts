@@ -1216,7 +1216,12 @@ ${this.getCommonStyleAssets(compilation).map(assetName => {
         const assetItem = compilation.assets[item]
         const scriptContent = assetItem.source()
         hitScriptItem = item
-        templStr += `\n<script>${scriptContent}</script>`
+        // TODO: 应该只有华为快应用需要加globalThis;
+        if (componentName === 'app') {
+          templStr += `\n<script>global=globalThis;${scriptContent}</script>`
+        } else {
+          templStr += `\n<script>${scriptContent}</script>`
+        }
         
       }
     })
