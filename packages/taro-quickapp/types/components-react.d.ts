@@ -10,6 +10,7 @@ export declare const SwiperItem = "div";
 export declare const QkTabs = "tabs";
 export declare const QkTabBar = "tab-bar";
 export declare const QkTabContent = "tab-content";
+export declare const A = "a";
 export declare const Image = "image";
 export declare const QkSpan = "span";
 export declare const QkText = "text";

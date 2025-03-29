@@ -17,6 +17,7 @@
     "runtimeExecutable": "/Users/yetherine/.nvm/versions/node/v16.20.0/bin/node",
     "env": {
       "TYPE": "huawei",
+      "STAGE": "test"
     },
     "args": [
       "build",

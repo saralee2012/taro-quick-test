@@ -958,17 +958,20 @@ declare module '@tarojs/components' {
    */
   export const QkTabContent: ComponentType<TabContentProps>
 
-  // /**
-  //  * 超链接（默认不带下划线）
-  //  *
-  //  * 文本内容写在标签内容区，支持转义字符"\"
-  //  *
-  //  * 子组件：仅支持\<span>
-  //  *
-  //  * @supported quickapp
-  //  * @see https://doc.quickapp.cn/widgets/tab-content.html
-  //  */
-  // export const QkA: ComponentType<AProps>
+  /**
+   * 超链接（默认不带下划线）
+   *
+   * 文本内容写在标签内容区，支持转义字符"\"
+   *
+   * 子组件：仅支持\<span>
+   *
+   * @supported quickapp
+   * @see https://doc.quickapp.cn/widgets/tab-content.html
+   */
+
+
+  '感谢您选择！\n为了更好的保障您的个人权益，在您使用我们的产品前，请务必审慎阅读##《服务协议》##与##《隐私政策》##以帮助您了解我们对您的个人信息的处理情况以及您享有的相关权利。\n1.  为向您提供账号注册/登录功能，我们将收集您的手机号信息；为向您提供个性化内容推荐功能，我们将收集您的设备信息、个人上网记录。我们仅会根据您使用我们产品的具体功能需要，收集必要的用户信息。'
+  export const A: ComponentType<AProps>
 
   /**
    * 渲染图片

@@ -61,9 +61,9 @@ export const components = {
   QkTabContent: {
     scrollable: 'true'
   },
-  // QkA: {
-  //   href: singleQuote('')
-  // },
+  A: {
+    href: singleQuote('')
+  },
   Image: {
     src: singleQuote(''),
     alt: singleQuote(''),

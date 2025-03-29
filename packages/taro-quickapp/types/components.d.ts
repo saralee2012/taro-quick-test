@@ -37,6 +37,9 @@ export declare const components: {
     QkTabContent: {
         scrollable: string;
     };
+    A: {
+        href: string;
+    };
     Image: {
         src: string;
         alt: string;
