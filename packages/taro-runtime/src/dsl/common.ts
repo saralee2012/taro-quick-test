@@ -420,12 +420,7 @@ export function createQuickAppConfig () {
         default: 'div'
       }
     },
-    private: {
-      height: 0,
-      width: 0
-    },
     onInit () {
-      this.$on('getHeight', this.getHeight)
     },
     eh (event) {
       // 快应用的event.type是只读的
@@ -464,31 +459,6 @@ export function createQuickAppConfig () {
     getId (id) {
       if(id) {
         return this.$element(id)
-      }
-    },
-    getHeight (e) {
-      const id = e?.detail?.id
-      if(id) {
-        if(this.height > 0) {
-          this.$dispatch('setHeight', {
-            height: this.height,
-            width: this.width
-          })
-          return 
-        }
-        const that = this
-        this.$element(id).getBoundingClientRect({
-          success (res) {
-            if(res.height > 0) {
-              that.height = res.height
-              that.width = res.width
-              that.$dispatch('setHeight', {
-                height: res.height,
-                width: res.width
-              })
-            }
-          }
-        })
       }
     },
     // 过滤器
