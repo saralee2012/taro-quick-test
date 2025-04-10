@@ -143,6 +143,7 @@ export const components = {
     titlebar: 'true',
     title: singleQuote(''),
     playcount: '1',
+    initialtime: singleQuote(''),
     enablevideofullscreencontainer: 'false',
     // bindPrepared: '',
     // bindStart: '',
