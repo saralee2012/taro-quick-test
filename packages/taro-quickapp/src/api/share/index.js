@@ -30,6 +30,10 @@ export function reLaunch (options = {}) {
   return qappNavigate(options, 'replace')
 }
 
+export function clearRouter () {
+  return router.clear()
+}
+
 function qappNavigate (options = {}, method = 'push') {
   const { url = '', success, fail, complete, parse = true } = options
   const res = { errMsg: 'ok' }
@@ -90,5 +94,6 @@ export default {
   navigateTo,
   redirectTo,
   navigateBack,
-  getCurrentPages
+  getCurrentPages,
+  clearRouter
 }
