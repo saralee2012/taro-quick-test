@@ -8,7 +8,12 @@ export function exitApp (id) {
   app.exit(id)
 }
 
+export function getAppInfo () {
+  return app.getInfo()
+}
+
 export default {
   getAppModule,
-  exitApp
+  exitApp,
+  getAppInfo
 }
