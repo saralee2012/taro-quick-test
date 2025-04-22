@@ -650,6 +650,12 @@ interface VideoProps extends StandardProps {
    */
   playcount?: number | 'infinite'
   /**
+   * 视频播放速度
+   * @default 1
+   * @supported quickapp(1109+)
+   */
+  playspeed?: number
+  /**
    * 若 video 组件的直接父组件为 div 组件，且其enablevideofullscreencontainer值为 true，则开启全屏显示自定义组件特性。默认值为 false，特性为关闭状态
    * @default false
    * @supported quickapp(1080+)

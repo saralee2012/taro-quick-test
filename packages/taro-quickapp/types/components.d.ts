@@ -75,6 +75,7 @@ export declare const components: {
         title: string;
         playcount: string;
         initialtime: string;
+        playspeed: string;
         enablevideofullscreencontainer: string;
     };
     QkCanvas: {};

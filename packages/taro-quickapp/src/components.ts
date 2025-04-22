@@ -144,6 +144,7 @@ export const components = {
     title: singleQuote(''),
     playcount: '1',
     initialtime: singleQuote(''),
+    playspeed: '1',
     enablevideofullscreencontainer: 'false',
     // bindPrepared: '',
     // bindStart: '',
