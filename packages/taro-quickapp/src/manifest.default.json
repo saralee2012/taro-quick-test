@@ -3,7 +3,7 @@
   "name": "iqiyi",
   "versionName": "1.0.0",
   "versionCode": 1,
-  "minPlatformVersion": 1090,
+  "minPlatformVersion": 1117,
   "features": [
     { "name": "system.prompt" },
     { "name": "system.router" },
