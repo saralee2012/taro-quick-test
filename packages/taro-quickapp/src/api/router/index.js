@@ -35,11 +35,11 @@ export function clearRouter () {
 }
 
 function qappNavigate (options = {}, method = 'push') {
-  const { url = '', success, fail, complete, parse = true } = options
+  const { url = '', success, fail, complete, parse = true, params = {} } = options
   const res = { errMsg: 'ok' }
 
   return new Promise((resolve, reject) => {
-    let params = {}
+    let newParams = params
     if (!url) {
       res.errMsg = 'url不能为空'
       fail && fail(res)
@@ -49,7 +49,7 @@ function qappNavigate (options = {}, method = 'push') {
     let parseUrl = url
     if(parse) {
       const [pathname, querystring] = url.split('?')
-      params = getUrlParams(querystring)
+      newParams = getUrlParams(querystring)
       parseUrl = getUrlPath(pathname)
     }
     
@@ -57,7 +57,7 @@ function qappNavigate (options = {}, method = 'push') {
     try {
       router[method]({
         uri: parseUrl,
-        params
+        params: newParams
       })
       success && success(res)
       complete && complete(res)

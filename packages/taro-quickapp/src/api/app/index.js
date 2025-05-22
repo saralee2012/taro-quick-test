@@ -12,8 +12,13 @@ export function getAppInfo () {
   return app.getInfo()
 }
 
+export function getUpdateManager () {
+  return app.getUpdateManager()
+}
+
 export default {
   getAppModule,
   exitApp,
-  getAppInfo
+  getAppInfo,
+  getUpdateManager,
 }

@@ -95,7 +95,7 @@ export const arrayBufferToBase64 = temporarilyNotSupport('arrayBufferToBase64')
 export const base64ToArrayBuffer = temporarilyNotSupport('base64ToArrayBuffer')
 
 export const getAccountInfoSync = temporarilyNotSupport('getAccountInfoSync')
-export const getUpdateManager = temporarilyNotSupport('getUpdateManager')
+// export const getUpdateManager = temporarilyNotSupport('getUpdateManager')
 export const createWorker = temporarilyNotSupport('createWorker')
 
 // otherApis
