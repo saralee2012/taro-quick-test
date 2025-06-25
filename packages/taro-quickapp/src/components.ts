@@ -1,12 +1,26 @@
 import { singleQuote } from '@tarojs/shared'
 
+
+const IS_HUAWEI_QUICK = process.env.TYPE === 'huawei'
 export const components = {
-  View: {
+  View: IS_HUAWEI_QUICK ? {
     enablevideofullscreencontainer: 'false',
+  } : {
+    enablevideofullscreencontainer: 'false',
+    show: 'true'
   },
-  List: {
+  List: IS_HUAWEI_QUICK ?  {
     scrollpage: 'false',
     layoutType: 'grid',
+    outclass: singleQuote(''),
+  } : {
+    scrollpage: 'false',
+    layoutType: 'list',
+    bindScroll: '',
+    bindScrollBottom: '',
+    bindScrollTop: '',
+    bindScrollEnd: '',
+    bindScrollTouchUp: '',
     outclass: singleQuote(''),
   },
   ListItem: {
@@ -14,9 +28,17 @@ export const components = {
     disallowintercept: 'false',
     tid: singleQuote('')
   },
-  ScrollView: {
+  ScrollView: IS_HUAWEI_QUICK ?  {
     scrollpage: 'false',
     layoutType: singleQuote('grid'),
+  } : {
+    scrollpage: 'false',
+    layoutType: singleQuote('list'),
+    bindScroll: '',
+    bindScrollBottom: '',
+    bindScrollTop: '',
+    bindScrollEnd: '',
+    bindScrollTouchUp: '',
   },
   // QkPopup: {
   //   target: singleQuote(''),
@@ -38,7 +60,7 @@ export const components = {
   // QkStack: {
   //   bindFullScreenChange: ''
   // },
-  Swiper: {
+  Swiper: IS_HUAWEI_QUICK ?  {
     index: '0',
     autoplay: 'false',
     interval: '3000',
@@ -50,10 +72,25 @@ export const components = {
     nextMargin: singleQuote(''),
     enableSwipe: 'true',
     // bindChange: ''
+  } : {
+    index: '0',
+    autoplay: 'false',
+    interval: '3000',
+    indicator: 'true',
+    loop: 'false',
+    duration: '0',
+    vertical: 'false',
+    previousMargin: singleQuote(''),
+    nextMargin: singleQuote(''),
+    enableSwipe: 'true',
+    bindChange: ''
   },
-  QkTabs: {
+  QkTabs: IS_HUAWEI_QUICK ? {
     index: '0',
     // bindChange: ''
+  } : {
+    index: '0',
+    bindChange: ''
   },
   QkTabBar: {
     mode: singleQuote('fixed')
@@ -64,10 +101,16 @@ export const components = {
   A: {
     href: singleQuote('')
   },
-  Image: {
+  Image: IS_HUAWEI_QUICK ?  {
     src: singleQuote(''),
     alt: singleQuote(''),
     autoplay: 'true',
+  } : {
+    src: singleQuote(''),
+    alt: singleQuote(''),
+    autoplay: 'true',
+    bindComplete: '',
+    bindError: ''
   },
   // QkProgress: {
   //   percent: '0',
@@ -90,7 +133,7 @@ export const components = {
   //   bindFinish: '',
   //   bindStart: ''
   // },
-  Input: {
+  Input: IS_HUAWEI_QUICK ? {
     type: singleQuote('text'),
     checked: 'false',
     name: singleQuote(''),
@@ -100,6 +143,18 @@ export const components = {
     enterkeytype: singleQuote('default'),
     autocomplete: singleQuote('on'),
     // bindChange: '',
+  } : {
+    type: singleQuote('text'),
+    checked: 'false',
+    name: singleQuote(''),
+    value: singleQuote(''),
+    placeholder: singleQuote(''),
+    maxlength: '100',
+    enterkeytype: singleQuote('default'),
+    autocomplete: singleQuote('on'),
+    bindChange: '',
+    bindEnterkeyClick: '',
+    bindSelectionChange: ''
   },
   // QkLabel: {
   //   target: singleQuote('')
@@ -123,7 +178,7 @@ export const components = {
   //   checked: 'false',
   //   bindChange: ''
   // },
-  Textarea: {
+  Textarea: IS_HUAWEI_QUICK ? {
     placeholder: singleQuote(''),
     autofocus: 'false',
     maxlength: '100',
@@ -132,8 +187,17 @@ export const components = {
     // bindLineChange: '',
     bindFocus: '',
     bindBlur: '',
+  } : {
+    placeholder: singleQuote(''),
+    autofocus: 'false',
+    maxlength: '100',
+    bindChange: '',
+    bindSelectionChange: '',
+    bindLineChange: '',
+    bindFocus: '',
+    bindBlur: '',
   },
-  Video: {
+  Video: IS_HUAWEI_QUICK ? {
     src: singleQuote(''),
     autoplay: 'false',
     poster: singleQuote(''),
@@ -154,6 +218,27 @@ export const components = {
     // bindSeeked: '',
     // bindTimeUpdate: '',
     // bindFullScreenChange: ''
+  } : {
+    src: singleQuote(''),
+    autoplay: 'false',
+    poster: singleQuote(''),
+    controls: 'true',
+    muted: 'false',
+    orientation: singleQuote('landscape'),
+    titlebar: 'true',
+    title: singleQuote(''),
+    playcount: '1',
+    initialtime: singleQuote(''),
+    playspeed: '1',
+    enablevideofullscreencontainer: 'false',
+    bindPrepared: '',
+    bindStart: '',
+    bindPause: '',
+    bindFinish: '',
+    bindSeeking: '',
+    bindSeeked: '',
+    bindTimeUpdate: '',
+    bindFullScreenChange: ''
   },
   // QkCamera: {
   //   deviceposition: singleQuote('front'),
@@ -181,5 +266,6 @@ export const components = {
   //   bindProgress: ''
   // }
 }
+
 
 
