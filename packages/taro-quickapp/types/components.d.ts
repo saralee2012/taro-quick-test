@@ -128,6 +128,10 @@ export declare const components: {
         bindEnterkeyClick: string;
         bindSelectionChange: string;
     };
+    Switch: {
+        checked: string;
+        bindChange: string;
+    };
     Textarea: {
         placeholder: string;
         autofocus: string;
