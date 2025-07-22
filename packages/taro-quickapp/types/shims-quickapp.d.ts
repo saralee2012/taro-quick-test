@@ -1076,12 +1076,12 @@ declare module '@tarojs/components' {
    */
   //export const QkSlider: ComponentType<SliderProps>
 
-  // /**
-  //  * 开关选择
-  //  * @supported quickapp
-  //  * @see https://doc.quickapp.cn/widgets/switch.html
-  //  */
-  // export const QkSwitch: ComponentType<SwitchProps>
+  /**
+  * 开关选择
+  * @supported quickapp
+  * @see https://doc.quickapp.cn/widgets/switch.html
+  */
+  export const Switch: ComponentType<SwitchProps>
 
   /**
    * 提供可交互的界面，接收用户的输入，默认为多行
