@@ -174,10 +174,10 @@ export const components = {
   // QkSelect: {
   //   bindChange: ''
   // },
-  Switch: {
-    checked: 'false',
-    bindChange: ''
-  },
+  // QkSwitch: {
+  //   checked: 'false',
+  //   bindChange: ''
+  // },
   Textarea: IS_HUAWEI_QUICK ? {
     placeholder: singleQuote(''),
     autofocus: 'false',
