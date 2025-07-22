@@ -15,7 +15,6 @@ export declare const Image = "image";
 export declare const QkSpan = "span";
 export declare const QkText = "text";
 export declare const Input = "input";
-export declare const Switch = "switch";
 export declare const Textarea = "textarea";
 export declare const Video = "video";
 export declare const QkCanvas = "canvas";
